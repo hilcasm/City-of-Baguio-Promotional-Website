@@ -1062,5 +1062,190 @@
   reveals.forEach(el => observer.observe(el));
 </script>
 
+  <style>
+  #strawberry-companion {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    font-family: 'Crimson Pro', Georgia, serif;
+  }
+  #fact-bubble {
+    background: #fff8f0;
+    border: 1.5px solid #e8b4a0;
+    border-radius: 16px 16px 4px 16px;
+    padding: 12px 15px;
+    max-width: 230px;
+    min-width: 180px;
+    box-shadow: 0 4px 20px rgba(200,80,60,0.1);
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+  #fact-bubble.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+  }
+  #fact-bubble .fact-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c04040;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  #fact-bubble .fact-text {
+    font-size: 0.88rem;
+    color: #3a1a0a;
+    line-height: 1.55;
+    font-weight: 400;
+  }
+  #fact-bubble .fact-next {
+    margin-top: 9px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c04040;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  #fact-bubble .fact-next:hover { opacity: 0.6; }
+  #berry-btn {
+    width: 62px;
+    height: 62px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    filter: drop-shadow(0 4px 10px rgba(200,60,60,0.25));
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
+    animation: berry-float 3s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  #berry-btn:hover {
+    transform: scale(1.12) rotate(-5deg);
+    animation-play-state: paused;
+  }
+  #berry-btn:active { transform: scale(0.96); }
+  @keyframes berry-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  #fact-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.45rem;
+    color: #c0806060;
+    letter-spacing: 0.1em;
+    text-align: right;
+    margin-top: 4px;
+  }
+</style>
+
+<div id="strawberry-companion">
+  <div id="fact-bubble">
+    <div class="fact-label"><span>🍓</span> baguio fact</div>
+    <div class="fact-text" id="fact-text"></div>
+    <div id="fact-counter"></div>
+    <button class="fact-next" id="next-btn">next fact →</button>
+  </div>
+  <button id="berry-btn" aria-label="Strawberry companion" title="Click me for a fun fact!">
+    <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" width="62" height="68">
+      <ellipse cx="50" cy="68" rx="32" ry="35" fill="#e83030"/>
+      <ellipse cx="50" cy="68" rx="30" ry="33" fill="#f04040"/>
+      <ellipse cx="38" cy="56" rx="12" ry="10" fill="#f56060" opacity="0.4"/>
+      <ellipse cx="62" cy="78" rx="9" ry="8" fill="#f56060" opacity="0.25"/>
+      <ellipse cx="44" cy="80" rx="3.5" ry="5" fill="#c02020"/>
+      <ellipse cx="56" cy="63" rx="3" ry="4.5" fill="#c02020"/>
+      <ellipse cx="38" cy="70" rx="2.8" ry="4" fill="#c02020"/>
+      <ellipse cx="62" cy="72" rx="2.8" ry="4" fill="#c02020"/>
+      <ellipse cx="50" cy="90" rx="3" ry="4.5" fill="#c02020"/>
+      <ellipse cx="42" cy="57" rx="2.5" ry="3.5" fill="#c02020"/>
+      <ellipse cx="60" cy="84" rx="2.5" ry="3.5" fill="#c02020"/>
+      <path d="M35 38 Q50 18 65 38" fill="none" stroke="#3a7a20" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="50" cy="28" rx="7" ry="11" fill="#4a9a28" transform="rotate(-5 50 28)"/>
+      <ellipse cx="36" cy="36" rx="6" ry="9" fill="#3a8a20" transform="rotate(-35 36 36)"/>
+      <ellipse cx="64" cy="36" rx="6" ry="9" fill="#3a8a20" transform="rotate(35 64 36)"/>
+      <ellipse cx="50" cy="22" rx="2" ry="5" fill="#5aaa30"/>
+      <circle cx="38" cy="75" r="5" fill="#ffffff" opacity="0.18"/>
+      <circle cx="58" cy="60" r="3.5" fill="#ffffff" opacity="0.13"/>
+      <ellipse cx="42" cy="63" rx="6" ry="3" fill="#ffffff" opacity="0.15" transform="rotate(-30 42 63)"/>
+      <circle cx="37" cy="83" r="4" fill="#e04040" opacity="0.5"/>
+      <ellipse cx="38" cy="95" rx="5" ry="3" fill="#ff8080" opacity="0.25"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const facts = [
+    "Baguio sits at 1,540 meters above sea level — that's roughly as high as 5 Eiffel Towers stacked up!",
+    "Baguio is the only chartered city in the Cordillera Administrative Region — it's its own boss.",
+    "The city was designed by Daniel Burnham in 1905 — the same guy who planned Chicago and Manila's Rizal Park.",
+    "Baguio's Panagbenga Festival means 'season of blooming' in Kankanaey — celebrated every February with over a million flowers.",
+    "The average temperature in Baguio is only 16–19°C, earning it the nickname 'Summer Capital of the Philippines.'",
+    "Camp John Hay in Baguio was once a rest and recreation facility for U.S. military — now it's a tourist destination.",
+    "Baguio has more schools and universities per capita than most Philippine cities — it's a genuine university town.",
+    "The famous Baguio Night Market on Harrison Road started in the 1990s and now runs every night below Session Road.",
+    "Strawberry taho is a Baguio original — the classic silken tofu snack gets a highland twist with local strawberry syrup.",
+    "La Trinidad, just outside Baguio, supplies over 90% of all strawberries consumed in the Philippines.",
+    "The BenCab Museum, opened in 2009, houses over 300 works by National Artist Benedicto Cabrera and is built on a mini-watershed.",
+    "Baguio's roads were built partly using prisoner labor during the American colonial period in the early 1900s.",
+    "The 1990 earthquake (magnitude 7.7) devastated Baguio — the Hyatt Terraces hotel famously collapsed, killing hundreds.",
+    "Baguio is home to the Philippine Military Academy (PMA) — the country's premier military training institution since 1905.",
+    "Ube jam, peanut brittle, and woven Cordilleran souvenirs are the holy trinity of Baguio pasalubong culture."
+  ];
+
+  let current = Math.floor(Math.random() * facts.length);
+  let isOpen = false;
+
+  const bubble = document.getElementById('fact-bubble');
+  const factText = document.getElementById('fact-text');
+  const counter = document.getElementById('fact-counter');
+  const berryBtn = document.getElementById('berry-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  function showFact(index) {
+    factText.textContent = facts[index];
+    counter.textContent = `${index + 1} of ${facts.length}`;
+  }
+
+  berryBtn.addEventListener('click', () => {
+    isOpen = !isOpen;
+    if (isOpen) {
+      showFact(current);
+      bubble.classList.add('visible');
+    } else {
+      bubble.classList.remove('visible');
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    current = (current + 1) % facts.length;
+    factText.style.opacity = '0';
+    setTimeout(() => {
+      showFact(current);
+      factText.style.opacity = '1';
+    }, 180);
+  });
+
+  factText.style.transition = 'opacity 0.18s ease';
+  showFact(current);
+</script>
+  
 </body>
 </html>
