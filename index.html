@@ -1062,7 +1062,7 @@
   reveals.forEach(el => observer.observe(el));
 </script>
 
-  <style>
+ <style>
   #strawberry-companion {
     position: fixed;
     bottom: 28px;
@@ -1084,7 +1084,7 @@
     box-shadow: 0 4px 20px rgba(200,80,60,0.1);
     opacity: 0;
     transform: translateY(8px) scale(0.97);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.35s ease, transform 0.35s ease;
     pointer-events: none;
   }
   #fact-bubble.visible {
@@ -1108,52 +1108,38 @@
     color: #3a1a0a;
     line-height: 1.55;
     font-weight: 400;
+    transition: opacity 0.2s ease;
   }
-  #fact-bubble .fact-next {
-    margin-top: 9px;
+  #fact-counter {
     font-family: 'Space Mono', monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #c04040;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-    transition: opacity 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    font-size: 0.45rem;
+    color: rgba(192,128,96,0.5);
+    letter-spacing: 0.1em;
+    text-align: right;
+    margin-top: 5px;
   }
-  #fact-bubble .fact-next:hover { opacity: 0.6; }
   #berry-btn {
     width: 62px;
-    height: 62px;
+    height: 68px;
     cursor: pointer;
     border: none;
     background: none;
     padding: 0;
     filter: drop-shadow(0 4px 10px rgba(200,60,60,0.25));
     transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
-    animation: berry-float 3s ease-in-out infinite;
     flex-shrink: 0;
   }
-  #berry-btn:hover {
-    transform: scale(1.12) rotate(-5deg);
-    animation-play-state: paused;
-  }
-  #berry-btn:active { transform: scale(0.96); }
+  #berry-btn:hover { transform: scale(1.1) rotate(-4deg); }
+  #berry-btn:active { transform: scale(0.95); }
+  #berry-btn.talking { animation: berry-talk 0.4s ease-in-out infinite alternate; }
+  #berry-btn.idle { animation: berry-float 3s ease-in-out infinite; }
   @keyframes berry-float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
   }
-  #fact-counter {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.45rem;
-    color: #c0806060;
-    letter-spacing: 0.1em;
-    text-align: right;
-    margin-top: 4px;
+  @keyframes berry-talk {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-4px) scale(1.05) rotate(-3deg); }
   }
 </style>
 
@@ -1162,9 +1148,8 @@
     <div class="fact-label"><span>🍓</span> baguio fact</div>
     <div class="fact-text" id="fact-text"></div>
     <div id="fact-counter"></div>
-    <button class="fact-next" id="next-btn">next fact →</button>
   </div>
-  <button id="berry-btn" aria-label="Strawberry companion" title="Click me for a fun fact!">
+  <button id="berry-btn" class="idle" aria-label="Strawberry companion - Baguio fun facts">
     <svg viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg" width="62" height="68">
       <ellipse cx="50" cy="68" rx="32" ry="35" fill="#e83030"/>
       <ellipse cx="50" cy="68" rx="30" ry="33" fill="#f04040"/>
@@ -1193,58 +1178,74 @@
 
 <script>
   const facts = [
-    "Baguio sits at 1,540 meters above sea level — that's roughly as high as 5 Eiffel Towers stacked up!",
+    "Baguio sits at 1,540 meters above sea level — roughly as high as 5 Eiffel Towers stacked up!",
     "Baguio is the only chartered city in the Cordillera Administrative Region — it's its own boss.",
-    "The city was designed by Daniel Burnham in 1905 — the same guy who planned Chicago and Manila's Rizal Park.",
-    "Baguio's Panagbenga Festival means 'season of blooming' in Kankanaey — celebrated every February with over a million flowers.",
-    "The average temperature in Baguio is only 16–19°C, earning it the nickname 'Summer Capital of the Philippines.'",
-    "Camp John Hay in Baguio was once a rest and recreation facility for U.S. military — now it's a tourist destination.",
-    "Baguio has more schools and universities per capita than most Philippine cities — it's a genuine university town.",
-    "The famous Baguio Night Market on Harrison Road started in the 1990s and now runs every night below Session Road.",
-    "Strawberry taho is a Baguio original — the classic silken tofu snack gets a highland twist with local strawberry syrup.",
-    "La Trinidad, just outside Baguio, supplies over 90% of all strawberries consumed in the Philippines.",
-    "The BenCab Museum, opened in 2009, houses over 300 works by National Artist Benedicto Cabrera and is built on a mini-watershed.",
-    "Baguio's roads were built partly using prisoner labor during the American colonial period in the early 1900s.",
-    "The 1990 earthquake (magnitude 7.7) devastated Baguio — the Hyatt Terraces hotel famously collapsed, killing hundreds.",
-    "Baguio is home to the Philippine Military Academy (PMA) — the country's premier military training institution since 1905.",
-    "Ube jam, peanut brittle, and woven Cordilleran souvenirs are the holy trinity of Baguio pasalubong culture."
+    "The city was designed by Daniel Burnham in 1905 — the same guy who planned Chicago's lakefront.",
+    "Panagbenga means 'season of blooming' in Kankanaey — celebrated every February with over a million flowers.",
+    "The average temperature here is only 16–19°C. No wonder they call it the Summer Capital!",
+    "Camp John Hay was once a rest facility for the U.S. military. Now it's a full-on tourist spot.",
+    "Baguio has more universities per capita than most Philippine cities. Total university town energy.",
+    "The Night Market on Harrison Road has been running every single night since the 1990s.",
+    "Strawberry taho is a Baguio original — classic silken tofu with local strawberry arnibal. No notes.",
+    "La Trinidad, just beside Baguio, supplies over 90% of all strawberries consumed in the Philippines.",
+    "The BenCab Museum opened in 2009 and sits on an actual mini-watershed ecosystem. Art + nature combo.",
+    "Baguio's winding roads were partly built using prisoner labor during the American colonial era.",
+    "The 1990 earthquake (magnitude 7.7) collapsed the Hyatt Terraces hotel and changed Baguio forever.",
+    "The Philippine Military Academy has been training the country's military officers here since 1905.",
+    "Ube jam, peanut brittle, and woven crafts are the holy trinity of Baguio pasalubong. Non-negotiable.",
+    "Baguio's Burnham Park was named after Daniel Burnham, the architect who originally planned the city.",
+    "Session Road got its name from the Philippine Commission sessions held there during the American period.",
+    "The Mines View Park overlooks the gold and copper mines of Itogon — once a booming mining hub.",
+    "Baguio hosts the largest arts festival in the Philippines — the Baguio Arts Festival every February.",
+    "The city's pine trees are so iconic that cutting them without a permit is actually illegal."
   ];
 
-  let current = Math.floor(Math.random() * facts.length);
-  let isOpen = false;
+  let shuffled = [];
+  let factIndex = 0;
 
   const bubble = document.getElementById('fact-bubble');
   const factText = document.getElementById('fact-text');
   const counter = document.getElementById('fact-counter');
   const berryBtn = document.getElementById('berry-btn');
-  const nextBtn = document.getElementById('next-btn');
 
-  function showFact(index) {
-    factText.textContent = facts[index];
-    counter.textContent = `${index + 1} of ${facts.length}`;
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
   }
 
-  berryBtn.addEventListener('click', () => {
-    isOpen = !isOpen;
-    if (isOpen) {
-      showFact(current);
-      bubble.classList.add('visible');
-    } else {
-      bubble.classList.remove('visible');
+  function getNextFact() {
+    if (factIndex >= shuffled.length) {
+      shuffled = shuffle(facts);
+      factIndex = 0;
     }
-  });
+    return shuffled[factIndex++];
+  }
 
-  nextBtn.addEventListener('click', () => {
-    current = (current + 1) % facts.length;
+  function showFact() {
+    berryBtn.classList.remove('idle');
+    berryBtn.classList.add('talking');
+    const fact = getNextFact();
     factText.style.opacity = '0';
-    setTimeout(() => {
-      showFact(current);
-      factText.style.opacity = '1';
-    }, 180);
-  });
+    factText.textContent = fact;
+    counter.textContent = `fact ${factIndex} of ${facts.length}`;
+    bubble.classList.add('visible');
+    setTimeout(() => { factText.style.opacity = '1'; }, 80);
+    setTimeout(hideFact, 30000);
+  }
 
-  factText.style.transition = 'opacity 0.18s ease';
-  showFact(current);
+  function hideFact() {
+    bubble.classList.remove('visible');
+    berryBtn.classList.remove('talking');
+    berryBtn.classList.add('idle');
+    setTimeout(showFact, 30000);
+  }
+
+  shuffled = shuffle(facts);
+  setTimeout(showFact, 3000);
 </script>
   
 </body>
