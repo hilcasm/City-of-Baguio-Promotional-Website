@@ -41,29 +41,54 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 2.5rem;
-    background: rgba(13,26,13,0.85);
-    backdrop-filter: blur(12px);
+    background: linear-gradient(135deg, rgba(13,26,13,0.92) 0%, rgba(29,58,29,0.88) 50%, rgba(13,26,13,0.92) 100%);
+    backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(201,168,76,0.2);
     transition: all 0.3s ease;
   }
-  nav.scrolled { background: rgba(13,26,13,0.97); padding: 0.7rem 2.5rem; }
+  nav.scrolled {
+    background: linear-gradient(135deg, rgba(10,20,10,0.98) 0%, rgba(22,44,22,0.96) 50%, rgba(10,20,10,0.98) 100%);
+    padding: 0.7rem 2.5rem;
+  }
+
   .nav-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
   .logo-badge {
     width: 56px; height: 56px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--pine-light), var(--pine));
     border: 2.5px solid var(--gold);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; overflow: hidden;
     box-shadow: 0 0 16px rgba(201,168,76,0.3);
   }
+  .logo-badge img {
+    width: 56px; height: 56px; object-fit: cover; border-radius: 50%; display: block;
+  }
   .logo-text { display: flex; flex-direction: column; line-height: 1; }
   .logo-text .city { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--gold-light); letter-spacing: 0.05em; }
   .logo-text .tagline { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--mist); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 2px; }
-  .nav-links { display: flex; align-items: center; gap: 0.3rem; list-style: none; }
+
+  .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+
+  .nav-links {
+    display: flex; align-items: center; gap: 0.3rem; list-style: none;
+    overflow: hidden;
+    max-width: 600px;
+    max-height: 60px;
+    opacity: 1;
+    transition: max-width 0.5s cubic-bezier(0.4,0,0.2,1),
+                max-height 0.4s cubic-bezier(0.4,0,0.2,1),
+                opacity 0.3s ease;
+  }
+  .nav-links.collapsed {
+    max-width: 0;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
   .nav-links a {
     font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em;
     text-transform: uppercase; color: var(--mist); text-decoration: none;
     padding: 0.5rem 0.9rem; border-radius: 2px; transition: all 0.25s; position: relative;
+    white-space: nowrap;
   }
   .nav-links a::after {
     content: ''; position: absolute; bottom: 0; left: 50%;
@@ -72,11 +97,28 @@
   }
   .nav-links a:hover { color: var(--gold-light); }
   .nav-links a:hover::after { width: 60%; }
+
+  #nav-toggle {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: none;
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--gold);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    border-radius: 2px;
+  }
+  #nav-toggle:hover { border-color: rgba(201,168,76,0.5); color: var(--gold-light); }
+  #toggle-icon { font-size: 0.9rem; transition: transform 0.4s ease; display: inline-block; }
+
   .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
   .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold-light); transition: all 0.3s; border-radius: 2px; }
   .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
   .mobile-menu {
     display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(13,26,13,0.98); z-index: 999;
@@ -186,10 +228,8 @@
   .about-img-wrap:hover img { transform: scale(1.03); }
   .baybayin-side { position: absolute; left: -3rem; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 2.5rem; color: rgba(201,168,76,0.3); letter-spacing: 0.3em; white-space: nowrap; font-family: 'Playfair Display', serif; pointer-events: none; }
 
-  
   #government { padding: 6rem 2.5rem; background: var(--pine); position: relative; }
 
-  
   .officials-section { max-width: 1100px; margin: 3rem auto 0; }
   .officials-label {
     font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em;
@@ -198,7 +238,6 @@
   }
   .officials-label::after { content: ''; flex: 1; height: 1px; background: rgba(201,168,76,0.2); }
 
-  
   .mayor-card {
     display: flex; gap: 2.5rem; align-items: center;
     background: rgba(13,26,13,0.7); border: 1px solid rgba(201,168,76,0.3);
@@ -221,15 +260,11 @@
   .mayor-photo-wrap .photo-placeholder span { font-size: 2.5rem; }
   .mayor-photo-wrap .photo-placeholder p { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
   .mayor-info { flex: 1; }
-  .mayor-role {
-    font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem;
-  }
+  .mayor-role { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
   .mayor-name { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: var(--cream); line-height: 1.1; margin-bottom: 0.8rem; }
   .mayor-desc { font-size: 0.95rem; color: var(--mist); line-height: 1.7; font-weight: 300; max-width: 500px; }
   .mayor-term { display: inline-block; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; color: rgba(201,168,76,0.6); text-transform: uppercase; border: 1px solid rgba(201,168,76,0.2); padding: 0.3rem 0.8rem; }
 
-  
   .vicemayor-card {
     display: flex; gap: 2rem; align-items: center;
     background: rgba(13,26,13,0.5); border: 1px solid rgba(200,216,192,0.1);
@@ -245,7 +280,6 @@
   .vicemayor-info .vm-role { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
   .vicemayor-info .vm-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--cream); }
 
-  
   .councilors-label {
     font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em;
     text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
@@ -267,7 +301,6 @@
   .councilor-num { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; opacity: 0.7; }
   .councilor-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; color: var(--cream); line-height: 1.2; }
 
-  
   .offices-divider {
     display: flex; align-items: center; gap: 1.5rem;
     margin: 3rem 0 2rem; max-width: 1100px;
@@ -286,7 +319,6 @@
   .gov-card a { display: inline-block; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: gap 0.2s; }
   .gov-card a:hover { color: var(--gold-light); }
 
-  
   #tourism { padding: 6rem 2.5rem; background: var(--dark); }
   .tourism-intro { max-width: 600px; margin: 0 auto 3.5rem; text-align: center; }
   .tourism-intro h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: var(--cream); margin-bottom: 1rem; }
@@ -296,10 +328,7 @@
   .place-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }
   .place-card img { width: 100%; height: 300px; object-fit: cover; display: block; transition: transform 0.6s ease; filter: saturate(0.85); }
   .place-card:nth-child(1) img { height: 380px; }
-
-  
   .place-card:nth-child(2) img { object-position: center 30%; }
-
   .place-card:hover img { transform: scale(1.06); filter: saturate(1); }
   .place-card-overlay {
     position: absolute; inset: 0;
@@ -314,7 +343,6 @@
   .place-desc { font-size: 0.88rem; color: var(--mist); margin-top: 0.5rem; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; line-height: 1.5; font-weight: 300; }
   .place-card:hover .place-desc { max-height: 100px; }
 
-  
   #culture { padding: 6rem 2.5rem; background: var(--pine); position: relative; overflow: hidden; }
   .culture-hero-text { text-align: center; max-width: 800px; margin: 0 auto 4rem; }
   .culture-hero-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; color: var(--cream); line-height: 1.1; margin-bottom: 1rem; }
@@ -339,17 +367,14 @@
   .culture-strip-content h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--cream); margin-bottom: 0.3rem; }
   .culture-strip-content p { font-size: 0.92rem; color: var(--mist); line-height: 1.5; font-weight: 300; }
 
-  
   .culture-photo-wrap { width: 280px; height: 160px; overflow: hidden; flex-shrink: 0; border: 1px solid rgba(201,168,76,0.2); position: relative; }
   .culture-photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.8) contrast(1.05); transition: transform 0.5s ease, filter 0.4s; }
   .culture-strip:hover .culture-photo-wrap img { transform: scale(1.06); filter: saturate(1) contrast(1.05); }
   .culture-photo-wrap .photo-placeholder { width: 100%; height: 100%; background: rgba(13,26,13,0.6); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: rgba(201,168,76,0.3); border: 1px dashed rgba(201,168,76,0.15); }
   .culture-photo-wrap .photo-placeholder span { font-size: 2rem; }
   .culture-photo-wrap .photo-placeholder p { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; line-height: 1.5; }
-
   .culture-emoji { font-size: 2rem; flex-shrink: 0; }
 
-  
   #visit { padding: 6rem 2.5rem; background: var(--dark); position: relative; }
   .visit-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; max-width: 1100px; margin: 3rem auto 0; align-items: start; }
   .visit-info h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; color: var(--cream); margin-bottom: 1.5rem; line-height: 1.1; }
@@ -390,6 +415,8 @@
   .footer-col ul li a:hover { color: var(--gold-light); }
   .footer-bottom { max-width: 1100px; margin: 1.5rem auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
   .footer-bottom p { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; color: rgba(200,216,192,0.4); text-transform: uppercase; }
+  .footer-bottom a { color: rgba(201,168,76,0.6); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--gold-light); }
   .footer-baybayin { font-size: 1.5rem; color: rgba(201,168,76,0.3); letter-spacing: 0.2em; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -400,7 +427,8 @@
   @media (max-width: 1024px) {
     .councilors-grid { grid-template-columns: repeat(3, 1fr); }
     .culture-strip { grid-template-columns: 60px 1fr; }
-.culture-photo-wrap { width: 100%; height: 140px; }
+    .culture-photo-wrap { width: 100%; height: 140px; }
+    .culture-emoji { display: none; }
   }
   @media (max-width: 900px) {
     .about-grid, .visit-grid { grid-template-columns: 1fr; }
@@ -413,12 +441,14 @@
     .mayor-card { flex-direction: column; text-align: center; }
     .mayor-card::before { width: 100%; height: 4px; }
     .councilors-grid { grid-template-columns: repeat(2, 1fr); }
-    .culture-strip { grid-template-columns: 60px 1fr 2rem; }
-    .culture-photo-wrap { display: none; }
+    .culture-strip { grid-template-columns: 60px 1fr; }
+    .culture-photo-wrap { width: 100%; height: 140px; display: block; }
+    .culture-emoji { display: none; }
   }
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
+    #nav-toggle { display: none; }
     .hamburger { display: flex; }
     .mobile-menu { display: flex; }
     .hero-content { padding: 0 1.5rem 4rem; }
@@ -434,9 +464,9 @@
     .stamp-text { font-size: clamp(4rem, 20vw, 8rem); }
     .councilors-grid { grid-template-columns: repeat(2, 1fr); }
     .culture-strip { grid-template-columns: 1fr; gap: 0.8rem; padding: 1.2rem; }
-.culture-num { font-size: 2rem; }
-.culture-photo-wrap { width: 100%; height: 180px; display: block; }
-.culture-emoji { display: none; }
+    .culture-num { font-size: 2rem; }
+    .culture-photo-wrap { width: 100%; height: 180px; display: block; }
+    .culture-emoji { display: none; }
   }
   @media (max-width: 480px) {
     .logo-text .tagline { display: none; }
@@ -450,23 +480,29 @@
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <div class="logo-badge">
-      <img src="https://new.baguio.gov.ph/assets/baguio-logo.676e0ef7.png" style="width:40px;height:40px;object-fit:contain;">
+      <img src="https://new.baguio.gov.ph/assets/baguio-logo.676e0ef7.png" alt="Baguio City Logo">
     </div>
     <div class="logo-text">
       <span class="city">Baguio City</span>
       <span class="tagline">Summer Capital · Philippines</span>
     </div>
   </a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#government">Government</a></li>
-    <li><a href="#tourism">Tourism</a></li>
-    <li><a href="#culture">Culture</a></li>
-    <li><a href="#visit">Visit</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-right">
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#government">Government</a></li>
+      <li><a href="#tourism">Tourism</a></li>
+      <li><a href="#culture">Culture</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <button id="nav-toggle" aria-label="Toggle menu">
+      <span id="toggle-icon">☰</span>
+      <span id="toggle-label">menu</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
@@ -502,7 +538,7 @@
     <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div>
     <span class="bb-sep">✦</span>
     <div class="bb-item"><span class="bb-script">ᜑᜐᜒᜐᜒ</span><span class="bb-trans">HCC</span></div>
-<span class="bb-sep">✦</span>
+    <span class="bb-sep">✦</span>
     <div class="bb-item"><span class="bb-script">ᜉᜒᜎᜒᜉᜒᜈᜐ᜔</span><span class="bb-trans">Pilipinas</span></div>
     <span class="bb-sep">✦</span>
     <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div>
@@ -516,7 +552,7 @@
     <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div>
     <span class="bb-sep">✦</span>
     <div class="bb-item"><span class="bb-script">ᜑᜐᜒᜐᜒ</span><span class="bb-trans">HCC</span></div>
-<span class="bb-sep">✦</span>
+    <span class="bb-sep">✦</span>
     <div class="bb-item"><span class="bb-script">ᜊᜄᜒᜌᜓ</span><span class="bb-trans">Baguio</span></div>
     <span class="bb-sep">✦</span>
     <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div>
@@ -574,7 +610,6 @@
   </div>
 </section>
 
-
 <section id="government">
   <div style="max-width:1100px;margin:0 auto;">
     <div class="section-label reveal">02 · Government</div>
@@ -583,15 +618,10 @@
     <div class="officials-section">
       <div class="officials-label reveal">City Officials</div>
 
-      
       <div class="mayor-card reveal">
         <div class="mayor-photo-wrap">
-          
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Mayor_Benjamin_Magalong%2C_City_of_Baguio.jpg/960px-Mayor_Benjamin_Magalong%2C_City_of_Baguio.jpg" alt="City Mayor" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;">
-            <span>🏛️</span>
-            <p>Mayor<br>Photo Here</p>
-          </div>
+          <div class="photo-placeholder" style="display:none;"><span>🏛️</span><p>Mayor<br>Photo Here</p></div>
         </div>
         <div class="mayor-info">
           <div class="mayor-role">City Mayor · Baguio City</div>
@@ -601,36 +631,27 @@
         </div>
       </div>
 
-      
       <div class="vicemayor-card reveal">
         <div class="vicemayor-photo-wrap">
-          
           <img src="https://northluzon.politiko.com.ph/wp-content/uploads/2025/03/Baguio-City-Sangguniang-Panlungsod.jpg" alt="Vice Mayor" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;">
-            <span>⚖️</span>
-            <p>Vice Mayor<br>Photo Here</p>
-          </div>
+          <div class="photo-placeholder" style="display:none;"><span>⚖️</span><p>Vice Mayor<br>Photo Here</p></div>
         </div>
         <div class="vicemayor-info">
           <div class="vm-role">Vice Mayor · Baguio City</div>
-          <div class="vm-name">Faustino A. Olowan </div>
+          <div class="vm-name">Faustino A. Olowan</div>
         </div>
       </div>
 
-      
       <div class="councilors-label reveal">Councilors of District of Baguio City</div>
       <div class="councilors-grid">
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
-            
             <img src="https://northluzon.politiko.com.ph/wp-content/uploads/2017/10/north-Vice-Mayor-Edison-Bilog.jpg" alt="Councilor 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
             <div class="photo-placeholder" style="display:flex;">👤</div>
           </div>
           <div class="councilor-num">Councilor 1</div>
           <div class="councilor-name">Edison Bilog</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://ptvnews.ph/wp-content/uploads/2018/10/baguio-councilor-alangsab.jpg" alt="Councilor 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -639,7 +660,6 @@
           <div class="councilor-num">Councilor 2</div>
           <div class="councilor-name">Joel Alangsab</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D224377203649219&f=1&nofb=1&ipt=5e0020b58d119715acf7d019638fc5d5d5f56c6fec226926cc7bc1f5cee84827" alt="Councilor 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -648,7 +668,6 @@
           <div class="councilor-num">Councilor 3</div>
           <div class="councilor-name">Jose M. Molintas</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100063540918936&f=1&nofb=1&ipt=423b6904aaec8e166b43bc8b0e9bcf6d55b5b0511ab9b562e0ee73ae9f559503" alt="Councilor 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -657,7 +676,6 @@
           <div class="councilor-num">Councilor 4</div>
           <div class="councilor-name">Leandro B. Yañgot Jr.</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D1828459523&f=1&nofb=1&ipt=5c1cdeccd3eecf2342246b97738c7a64fec3887375987e1a81fec637ad1cb6f7" alt="Councilor 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -666,7 +684,6 @@
           <div class="councilor-num">Councilor 5</div>
           <div class="councilor-name">Vladimir D. Cayabas</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbaguioheraldexpressonline.com%2Fwp-content%2Fuploads%2F2018%2F02%2Fpeter-fianza.jpg&f=1&nofb=1&ipt=8987c6032d5f46fd067b8916df3226f7efffc9f3d1d93c0cc24d6ff921c540e8" alt="Councilor 6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -675,7 +692,6 @@
           <div class="councilor-num">Councilor 6</div>
           <div class="councilor-name">Peter C. Fianza</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100004164604802&f=1&nofb=1&ipt=5571a3f54ddc55c3b8d80bdfc3bb12e1142e8a5bdc671f81cc38219252c9d2c8" alt="Councilor 7" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -684,7 +700,6 @@
           <div class="councilor-num">Councilor 7</div>
           <div class="councilor-name">Van Dicang</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100063808669716&f=1&nofb=1&ipt=8bc8d739a25cdaa74a4d1501f9033176b73e30106031cfc49b22ec685814fd60" alt="Councilor 8" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -693,7 +708,6 @@
           <div class="councilor-num">Councilor 8</div>
           <div class="councilor-name">Fred L. Bagbagen</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://www.fildravo.com/wp-content/uploads/2023/07/Paolo2.png" alt="Councilor 9" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -702,7 +716,6 @@
           <div class="councilor-num">Councilor 9</div>
           <div class="councilor-name">Paolo Salvosa</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D1170047288493154&f=1&nofb=1&ipt=3ede122e99704e9a3fb91229299f7177598b077aea67c54288ca263a638991cd" alt="Councilor 10" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -711,7 +724,6 @@
           <div class="councilor-num">Councilor 10</div>
           <div class="councilor-name">Betty Lourdes F. Tabanda</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D61566568726136&f=1&nofb=1&ipt=45978a6e1100bf06d6fc8e0c57ff54ae52399322b83ff38529a82cce069f77e5" alt="Councilor 11" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -720,7 +732,6 @@
           <div class="councilor-num">Councilor 11</div>
           <div class="councilor-name">Yuri Weygan</div>
         </div>
-
         <div class="councilor-card reveal">
           <div class="councilor-photo-wrap">
             <img src="https://demo-baguio-lguapi.tondosolutions.com/media/councilor_images/Screenshot_2025-09-08_124146.webp" alt="Councilor 12" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -729,11 +740,9 @@
           <div class="councilor-num">Councilor 12</div>
           <div class="councilor-name">Elmer Orzal Datuin</div>
         </div>
-
       </div>
     </div>
 
-    
     <div class="offices-divider reveal">
       <div class="offices-divider-line"></div>
       <div class="offices-divider-text">City Offices & Departments</div>
@@ -766,10 +775,8 @@
         <a href="https://baguiobenguetdirectory.com/baguio-city-government-offices-lgu-guide/">Learn more →</a>
       </div>
     </div>
-
   </div>
 </section>
-
 
 <section id="tourism">
   <div style="max-width:1100px;margin:0 auto;">
@@ -788,7 +795,6 @@
         </div>
       </div>
       <div class="place-card reveal">
-        
         <img src="https://baguiocityguide.com/wp-content/uploads/2021/11/Mines-View-Park-Baguio-1024x576.jpg" alt="Mines View Park" loading="lazy">
         <div class="place-card-overlay">
           <div class="place-tag">Scenic Viewpoint</div>
@@ -824,7 +830,6 @@
   </div>
 </section>
 
-
 <section id="culture">
   <div style="max-width:1100px;margin:0 auto;">
     <div class="section-label reveal">04 · Culture & Heritage</div>
@@ -833,7 +838,6 @@
       <p>Baguio is the crossroads of multiple Cordilleran peoples — Ibaloi, Kankanaey, Ifugao — where indigenous traditions are not museum pieces but living, breathing culture.</p>
     </div>
     <div class="culture-strips">
-
       <div class="culture-strip reveal">
         <div class="culture-num">01</div>
         <div class="culture-strip-content">
@@ -841,16 +845,11 @@
           <p>The grand Flower Festival every February — a month-long explosion of blooms, street dancing, and Baguio pride that draws visitors nationwide.</p>
         </div>
         <div class="culture-photo-wrap">
-          
           <img src="https://media.philstar.com/photos/2022/12/04/gen4-panagbenga-festival2018-02-2422-22-56_2022-12-04_12-28-29.jpg" alt="Panagbenga Festival" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;">
-            <span>🌸</span>
-            <p>Panagbenga<br>Photo Here</p>
-          </div>
+          <div class="photo-placeholder" style="display:none;"><span>🌸</span><p>Panagbenga<br>Photo Here</p></div>
         </div>
         <div class="culture-emoji">🌸</div>
       </div>
-
       <div class="culture-strip reveal">
         <div class="culture-num">02</div>
         <div class="culture-strip-content">
@@ -858,16 +857,11 @@
           <p>Home to the works of National Artist Benedicto Cabrera — nestled in an eco-garden that showcases Filipino art, indigenous artifacts, and Cordilleran heritage.</p>
         </div>
         <div class="culture-photo-wrap">
-          
           <img src="http://farm4.staticflickr.com/3769/11381391845_8f7f6ba794_o.jpg" alt="BenCab Museum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;">
-            <span>🎨</span>
-            <p>BenCab Museum<br>Photo Here</p>
-          </div>
+          <div class="photo-placeholder" style="display:none;"><span>🎨</span><p>BenCab Museum<br>Photo Here</p></div>
         </div>
         <div class="culture-emoji">🎨</div>
       </div>
-
       <div class="culture-strip reveal">
         <div class="culture-num">03</div>
         <div class="culture-strip-content">
@@ -875,16 +869,11 @@
           <p>The intricate hand-woven textiles of the Cordillera — each pattern a story of lineage, rank, and identity passed down through generations of masterful weavers.</p>
         </div>
         <div class="culture-photo-wrap">
-          
           <img src="https://baguioheraldexpressonline.com/wp-content/uploads/2019/11/cordillera-weaver-111719.jpg" alt="Igorot Weaving" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;">
-            <span>🧵</span>
-            <p>Igorot Weaving<br>Photo Here</p>
-          </div>
+          <div class="photo-placeholder" style="display:none;"><span>🧵</span><p>Igorot Weaving<br>Photo Here</p></div>
         </div>
         <div class="culture-emoji">🧵</div>
       </div>
-
       <div class="culture-strip reveal">
         <div class="culture-num">04</div>
         <div class="culture-strip-content">
@@ -892,16 +881,11 @@
           <p>Below Session Road every evening — a beloved Baguio ritual of ukay-ukay, street food, warm jackets, and the unmistakable smell of strawberry taho.</p>
         </div>
         <div class="culture-photo-wrap">
-          
           <img src="https://live.staticflickr.com/8567/15992561950_da6c7ecae9_k.jpg" alt="Night Market" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;">
-            <span>🌙</span>
-            <p>Night Market<br>Photo Here</p>
-          </div>
+          <div class="photo-placeholder" style="display:none;"><span>🌙</span><p>Night Market<br>Photo Here</p></div>
         </div>
         <div class="culture-emoji">🌙</div>
       </div>
-
       <div class="culture-strip reveal">
         <div class="culture-num">05</div>
         <div class="culture-strip-content">
@@ -909,20 +893,14 @@
           <p>Baguio's iconic pasalubong scene — ube jam, peanut brittle, pine needle crafts, and woven goods that carry a piece of the mountain home.</p>
         </div>
         <div class="culture-photo-wrap">
-          
           <img src="https://3.bp.blogspot.com/-MVlVLnvWDQw/Wgwr003BnlI/AAAAAAAAGGI/uUjie4or9zkaGkUeHpOjk5RQwwWscyGjACLcBGAs/s1600/Baguio%2BCity%2BPasalubong%2B4.JPG" alt="Pasalubong Culture" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;">
-            <span>🎁</span>
-            <p>Pasalubong<br>Photo Here</p>
-          </div>
+          <div class="photo-placeholder" style="display:none;"><span>🎁</span><p>Pasalubong<br>Photo Here</p></div>
         </div>
         <div class="culture-emoji">🎁</div>
       </div>
-
     </div>
   </div>
 </section>
-
 
 <section id="visit">
   <div style="max-width:1100px;margin:0 auto;">
@@ -1025,124 +1003,45 @@
   </div>
 </footer>
 
-<script>
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
-  const navbar = document.getElementById('navbar');
-
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-  });
-
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
-  });
-
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('visible');
-        }, 100);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  reveals.forEach(el => observer.observe(el));
-</script>
-
- <style>
+<style>
   #strawberry-companion {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
     font-family: 'Crimson Pro', Georgia, serif;
   }
   #fact-bubble {
-    background: #fff8f0;
-    border: 1.5px solid #e8b4a0;
-    border-radius: 16px 16px 4px 16px;
-    padding: 12px 15px;
-    max-width: 230px;
-    min-width: 180px;
+    background: #fff8f0; border: 1.5px solid #e8b4a0;
+    border-radius: 16px 16px 4px 16px; padding: 12px 15px;
+    max-width: 230px; min-width: 180px;
     box-shadow: 0 4px 20px rgba(200,80,60,0.1);
-    opacity: 0;
-    transform: translateY(8px) scale(0.97);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    pointer-events: none;
+    opacity: 0; transform: translateY(8px) scale(0.97);
+    transition: opacity 0.35s ease, transform 0.35s ease; pointer-events: none;
   }
-  #fact-bubble.visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: all;
-  }
+  #fact-bubble.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
   #fact-bubble .fact-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.52rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #c04040;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: #c04040; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 5px;
   }
   #fact-bubble .fact-text {
-    font-size: 0.88rem;
-    color: #3a1a0a;
-    line-height: 1.55;
-    font-weight: 400;
-    transition: opacity 0.2s ease;
+    font-size: 0.88rem; color: #3a1a0a; line-height: 1.55;
+    font-weight: 400; transition: opacity 0.2s ease;
   }
   #fact-counter {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.45rem;
-    color: rgba(192,128,96,0.5);
-    letter-spacing: 0.1em;
-    text-align: right;
-    margin-top: 5px;
+    font-family: 'Space Mono', monospace; font-size: 0.45rem;
+    color: rgba(192,128,96,0.5); letter-spacing: 0.1em; text-align: right; margin-top: 5px;
   }
   #berry-btn {
-    width: 62px;
-    height: 68px;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
+    width: 62px; height: 68px; cursor: pointer; border: none; background: none; padding: 0;
     filter: drop-shadow(0 4px 10px rgba(200,60,60,0.25));
-    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1);
-    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1); flex-shrink: 0;
   }
   #berry-btn:hover { transform: scale(1.1) rotate(-4deg); }
   #berry-btn:active { transform: scale(0.95); }
   #berry-btn.talking { animation: berry-talk 0.4s ease-in-out infinite alternate; }
   #berry-btn.idle { animation: berry-float 3s ease-in-out infinite; }
-  @keyframes berry-float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
-  @keyframes berry-talk {
-    0% { transform: translateY(0) scale(1); }
-    100% { transform: translateY(-4px) scale(1.05) rotate(-3deg); }
-  }
+  @keyframes berry-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes berry-talk { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-4px) scale(1.05) rotate(-3deg); } }
 </style>
 
 <div id="strawberry-companion">
@@ -1179,6 +1078,53 @@
 </div>
 
 <script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  const navbar = document.getElementById('navbar');
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('navLinks');
+  const toggleIcon = document.getElementById('toggle-icon');
+  const toggleLabel = document.getElementById('toggle-label');
+  let navOpen = true;
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  navToggle.addEventListener('click', () => {
+    navOpen = !navOpen;
+    navLinks.classList.toggle('collapsed', !navOpen);
+    toggleIcon.style.transform = navOpen ? 'rotate(0deg)' : 'rotate(90deg)';
+    toggleLabel.textContent = navOpen ? 'menu' : 'nav';
+    navToggle.style.borderColor = navOpen ? 'rgba(201,168,76,0.25)' : 'rgba(201,168,76,0.6)';
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => { entry.target.classList.add('visible'); }, 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
   const facts = [
     "Baguio sits at 1,540 meters above sea level — roughly as high as 5 Eiffel Towers stacked up!",
     "Baguio is the only chartered city in the Cordillera Administrative Region — it's its own boss.",
@@ -1204,7 +1150,6 @@
 
   let shuffled = [];
   let factIndex = 0;
-
   const bubble = document.getElementById('fact-bubble');
   const factText = document.getElementById('fact-text');
   const counter = document.getElementById('fact-counter');
@@ -1220,10 +1165,7 @@
   }
 
   function getNextFact() {
-    if (factIndex >= shuffled.length) {
-      shuffled = shuffle(facts);
-      factIndex = 0;
-    }
+    if (factIndex >= shuffled.length) { shuffled = shuffle(facts); factIndex = 0; }
     return shuffled[factIndex++];
   }
 
@@ -1248,17 +1190,14 @@
 
   shuffled = shuffle(facts);
   setTimeout(showFact, 3000);
-</script>
 
-  <script>
   function createFireflies(section, count) {
     const canvas = document.createElement('canvas');
     canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;';
     section.style.position = 'relative';
     section.appendChild(canvas);
-
     const ctx = canvas.getContext('2d');
-    let W, H, flies = [];
+    let W, H;
 
     function resize() {
       W = canvas.width = section.offsetWidth;
@@ -1269,49 +1208,38 @@
 
     function rand(a, b) { return Math.random() * (b - a) + a; }
 
-    for (let i = 0; i < count; i++) {
-      flies.push({
-        x: rand(0, W || 800),
-        y: rand(0, H || 600),
-        r: rand(1, 2),
-        alpha: rand(0, 0.3),
-        alphaDir: rand(0.002, 0.005) * (Math.random() < 0.5 ? 1 : -1),
-        speed: rand(0.1, 0.3),
-        angle: rand(0, Math.PI * 2),
-        angleChange: rand(-0.01, 0.01),
-        glowSize: rand(5, 10)
-      });
-    }
+    const flies = Array.from({ length: count }, () => ({
+      x: rand(0, W || 800), y: rand(0, H || 600),
+      r: rand(1, 2), alpha: rand(0, 0.2),
+      alphaDir: rand(0.001, 0.004) * (Math.random() < 0.5 ? 1 : -1),
+      speed: rand(0.08, 0.25), angle: rand(0, Math.PI * 2),
+      angleChange: rand(-0.008, 0.008), glowSize: rand(4, 9)
+    }));
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
       flies.forEach(f => {
         f.alpha += f.alphaDir;
         if (f.alpha <= 0) { f.alpha = 0; f.alphaDir = Math.abs(f.alphaDir); }
-        if (f.alpha >= 0.28) { f.alpha = 0.28; f.alphaDir = -Math.abs(f.alphaDir); }
-
-        f.angle += f.angleChange + rand(-0.003, 0.003);
+        if (f.alpha >= 0.22) { f.alpha = 0.22; f.alphaDir = -Math.abs(f.alphaDir); }
+        f.angle += f.angleChange + rand(-0.002, 0.002);
         f.x += Math.cos(f.angle) * f.speed;
         f.y += Math.sin(f.angle) * f.speed;
-
         if (f.x < 0) f.x = W;
         if (f.x > W) f.x = 0;
         if (f.y < 0) f.y = H;
         if (f.y > H) f.y = 0;
-
         const grd = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.glowSize);
-        grd.addColorStop(0, `rgba(210, 255, 140, ${f.alpha})`);
-        grd.addColorStop(0.4, `rgba(180, 240, 80, ${f.alpha * 0.3})`);
-        grd.addColorStop(1, `rgba(150, 220, 60, 0)`);
-
+        grd.addColorStop(0, `rgba(210,255,140,${f.alpha})`);
+        grd.addColorStop(0.4, `rgba(180,240,80,${f.alpha * 0.25})`);
+        grd.addColorStop(1, `rgba(150,220,60,0)`);
         ctx.beginPath();
         ctx.arc(f.x, f.y, f.glowSize, 0, Math.PI * 2);
         ctx.fillStyle = grd;
         ctx.fill();
-
         ctx.beginPath();
         ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(230, 255, 180, ${f.alpha})`;
+        ctx.fillStyle = `rgba(230,255,180,${f.alpha})`;
         ctx.fill();
       });
       requestAnimationFrame(draw);
@@ -1319,10 +1247,10 @@
     draw();
   }
 
-  document.querySelectorAll('#hero, #about, #government, #tourism, #culture, #visit, footer').forEach(section => {
-    createFireflies(section, 8);
+  document.querySelectorAll('#hero, #about, #government, #tourism, #culture, #visit, footer').forEach(s => {
+    createFireflies(s, 8);
   });
 </script>
-  
+
 </body>
 </html>
