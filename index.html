@@ -399,8 +399,8 @@
 
   @media (max-width: 1024px) {
     .councilors-grid { grid-template-columns: repeat(3, 1fr); }
-    .culture-strip { grid-template-columns: 60px 1fr 2rem; }
-    .culture-photo-wrap { display: none; }
+    .culture-strip { grid-template-columns: 60px 1fr; }
+.culture-photo-wrap { width: 100%; height: 140px; }
   }
   @media (max-width: 900px) {
     .about-grid, .visit-grid { grid-template-columns: 1fr; }
@@ -433,8 +433,10 @@
     .footer-bottom { flex-direction: column; text-align: center; }
     .stamp-text { font-size: clamp(4rem, 20vw, 8rem); }
     .councilors-grid { grid-template-columns: repeat(2, 1fr); }
-    .culture-strip { grid-template-columns: 50px 1fr; gap: 1rem; padding: 1.2rem; }
-    .culture-emoji { display: none; }
+    .culture-strip { grid-template-columns: 1fr; gap: 0.8rem; padding: 1.2rem; }
+.culture-num { font-size: 2rem; }
+.culture-photo-wrap { width: 100%; height: 180px; display: block; }
+.culture-emoji { display: none; }
   }
   @media (max-width: 480px) {
     .logo-text .tagline { display: none; }
@@ -1246,6 +1248,71 @@
 
   shuffled = shuffle(facts);
   setTimeout(showFact, 3000);
+</script>
+
+  <canvas id="firefly-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
+<script>
+  const fc = document.getElementById('firefly-canvas');
+  const ctx = fc.getContext('2d');
+  let W, H, flies = [];
+
+  function resize() {
+    W = fc.width = window.innerWidth;
+    H = fc.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function rand(a, b) { return Math.random() * (b - a) + a; }
+
+  for (let i = 0; i < 28; i++) {
+    flies.push({
+      x: rand(0, window.innerWidth),
+      y: rand(0, window.innerHeight),
+      r: rand(1.5, 3),
+      alpha: rand(0, 1),
+      alphaDir: rand(0.003, 0.009) * (Math.random() < 0.5 ? 1 : -1),
+      speed: rand(0.15, 0.45),
+      angle: rand(0, Math.PI * 2),
+      angleChange: rand(-0.015, 0.015),
+      glowSize: rand(6, 14)
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    flies.forEach(f => {
+      f.alpha += f.alphaDir;
+      if (f.alpha <= 0) { f.alpha = 0; f.alphaDir *= -1; }
+      if (f.alpha >= 0.85) { f.alpha = 0.85; f.alphaDir *= -1; }
+
+      f.angle += f.angleChange + rand(-0.005, 0.005);
+      f.x += Math.cos(f.angle) * f.speed;
+      f.y += Math.sin(f.angle) * f.speed;
+
+      if (f.x < -20) f.x = W + 20;
+      if (f.x > W + 20) f.x = -20;
+      if (f.y < -20) f.y = H + 20;
+      if (f.y > H + 20) f.y = -20;
+
+      const grd = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.glowSize);
+      grd.addColorStop(0, `rgba(210, 255, 140, ${f.alpha})`);
+      grd.addColorStop(0.4, `rgba(180, 240, 80, ${f.alpha * 0.4})`);
+      grd.addColorStop(1, `rgba(150, 220, 60, 0)`);
+
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.glowSize, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(230, 255, 180, ${f.alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
 </script>
   
 </body>
