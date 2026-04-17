@@ -9,248 +9,111 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* LIGHT MODE PALETTE */
-    --bg-base: #f5f0e8;
-    --bg-alt: #fffcf7;
-    --bg-card: #ffffff;
-    --bg-dark-card: #1a0d2e;
+    --bg-base: #e8e0d4;
+    --bg-alt: #ede6db;
+    --bg-card: #f0e9df;
     --text-dark: #1a0a04;
     --text-mid: #3d2010;
     --text-muted: #6b4a30;
     --text-light: #9a7a60;
-    --border: rgba(100, 60, 20, 0.15);
-    --border-warm: rgba(200, 100, 40, 0.3);
-
-    /* ACCENT PALETTE - kept vibrant */
-    --gold: #c8850a;
-    --gold-light: #e8a020;
-    --gold-pale: #fff3d0;
-    --coral: #d94f20;
-    --pink: #c0306a;
-    --blue: #1a7aaa;
-    --sky: #4ab8e0;
-    --green: #3a8a28;
-    --mint: #e8f5e0;
-    --peach: #ffeada;
-    --cream: #fffcf7;
-    --white: #ffffff;
+    --border: rgba(100,60,20,0.13);
+    --border-warm: rgba(180,90,30,0.25);
+    --gold: #b87a08;
+    --gold-light: #d4901a;
+    --gold-pale: #f0e4c0;
+    --coral: #c04418;
+    --pink: #b02860;
+    --blue: #1a6a9a;
+    --sky: #3aa8d0;
+    --green: #387820;
+    --cream: #f5ede0;
+    --white: #f8f2ea;
     --dark: #1a0a04;
-
-    /* gradient accents */
-    --grad-gold: linear-gradient(135deg, #c8850a 0%, #d94f20 100%);
-    --grad-warm: linear-gradient(135deg, #e8a020 0%, #c0306a 100%);
-    --grad-sky: linear-gradient(135deg, #1a7aaa 0%, #3a8a28 100%);
+    --grad-gold: linear-gradient(135deg, #b87a08 0%, #c04418 100%);
+    --grad-warm: linear-gradient(135deg, #d4901a 0%, #b02860 100%);
+    --grad-sky: linear-gradient(135deg, #1a6a9a 0%, #387820 100%);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Crimson Pro', Georgia, serif;
-    background: var(--bg-base);
-    color: var(--text-dark);
-    overflow-x: hidden;
-    cursor: default;
-  }
+  body { font-family: 'Crimson Pro', Georgia, serif; background: var(--bg-base); color: var(--text-dark); overflow-x: hidden; cursor: default; }
 
-  /* ─── NAV ─── */
   nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
     padding: 1rem 2.5rem;
-    background: rgba(245, 240, 232, 0.92);
+    background: rgba(222,212,198,0.93);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border-warm);
     transition: all 0.3s ease;
   }
-  nav.scrolled {
-    background: rgba(255, 252, 247, 0.98);
-    padding: 0.7rem 2.5rem;
-    box-shadow: 0 2px 20px rgba(100,50,10,0.1);
-  }
-
+  nav.scrolled { background: rgba(230,220,206,0.98); padding: 0.7rem 2.5rem; box-shadow: 0 2px 20px rgba(100,50,10,0.12); }
   .nav-logo { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; }
-  .logo-badge {
-    width: 56px; height: 56px; border-radius: 50%;
-    border: 2.5px solid var(--gold);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; overflow: hidden;
-    box-shadow: 0 0 16px rgba(200,133,10,0.25);
-  }
+  .logo-badge { width: 56px; height: 56px; border-radius: 50%; border: 2.5px solid var(--gold); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; box-shadow: 0 0 16px rgba(184,122,8,0.2); }
   .logo-badge img { width: 56px; height: 56px; object-fit: cover; border-radius: 50%; display: block; }
   .logo-text { display: flex; flex-direction: column; line-height: 1; }
   .logo-text .city { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
   .logo-text .tagline { font-family: 'Space Mono', monospace; font-size: 0.55rem; color: var(--text-muted); letter-spacing: 0.18em; text-transform: uppercase; margin-top: 2px; }
-
   .nav-right { display: flex; align-items: center; gap: 0.8rem; }
-  .nav-links {
-    display: flex; align-items: center; gap: 0.3rem; list-style: none;
-    overflow: hidden; max-width: 600px; max-height: 60px; opacity: 1;
-    transition: max-width 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.4s, opacity 0.3s;
-  }
+  .nav-links { display: flex; align-items: center; gap: 0.3rem; list-style: none; overflow: hidden; max-width: 600px; max-height: 60px; opacity: 1; transition: max-width 0.5s cubic-bezier(0.4,0,0.2,1), max-height 0.4s, opacity 0.3s; }
   .nav-links.collapsed { max-width: 0; max-height: 0; opacity: 0; pointer-events: none; }
-  .nav-links a {
-    font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--text-muted); text-decoration: none;
-    padding: 0.5rem 0.9rem; border-radius: 2px; transition: all 0.25s; position: relative; white-space: nowrap;
-  }
-  .nav-links a::after {
-    content: ''; position: absolute; bottom: 0; left: 50%;
-    width: 0; height: 1px; background: var(--grad-gold);
-    transform: translateX(-50%); transition: width 0.3s;
-  }
+  .nav-links a { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; padding: 0.5rem 0.9rem; border-radius: 2px; transition: all 0.25s; position: relative; white-space: nowrap; }
+  .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 1px; background: var(--gold); transform: translateX(-50%); transition: width 0.3s; }
   .nav-links a:hover { color: var(--gold); }
   .nav-links a:hover::after { width: 60%; }
-
   #nav-toggle { display: none; }
   #toggle-icon { font-size: 0.9rem; transition: transform 0.4s ease; display: inline-block; }
 
-  /* ─── HERO ─── */
-  #hero {
-    position: relative; height: 100vh; min-height: 600px;
-    display: flex; align-items: flex-end; overflow: hidden;
-  }
+  #hero { position: relative; height: 100vh; min-height: 600px; display: flex; align-items: flex-end; overflow: hidden; }
   .hero-bg {
     position: absolute; inset: 0;
-    background:
-      linear-gradient(to bottom, rgba(245,240,232,0.15) 0%, rgba(245,240,232,0.0) 35%, rgba(20,10,5,0.75) 100%),
-      url('https://www.agoda.com/wp-content/uploads/2024/05/baguio-philippines.jpg') center/cover no-repeat;
-    transform: scale(1.05);
-    animation: heroZoom 18s ease-in-out infinite alternate;
+    background: linear-gradient(to bottom, rgba(15,6,3,0.18) 0%, rgba(15,6,3,0.0) 35%, rgba(8,3,1,0.84) 100%), url('https://www.agoda.com/wp-content/uploads/2024/05/baguio-philippines.jpg') center/cover no-repeat;
+    transform: scale(1.05); animation: heroZoom 18s ease-in-out infinite alternate;
   }
   @keyframes heroZoom { from { transform: scale(1.05); } to { transform: scale(1.12); } }
-  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(20,8,4,0.45) 0%, transparent 60%, rgba(20,8,4,0.25) 100%); }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(12,5,2,0.45) 0%, transparent 60%, rgba(12,5,2,0.2) 100%); }
   .hero-content { position: relative; z-index: 2; padding: 0 2.5rem 5rem; max-width: 900px; }
-  .hero-baybayin {
-    font-size: clamp(2.5rem, 7vw, 5.5rem); color: rgba(255,220,140,0.45);
-    letter-spacing: 0.15em; line-height: 1; margin-bottom: 0.3rem;
-    font-family: 'Playfair Display', serif;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.2s;
-  }
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 10vw, 8rem);
-    font-weight: 900;
-    /* FIX: use padding-bottom to prevent descender clipping, and line-height generous */
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.4s;
-    /* overflow must NOT be hidden at any parent level */
-  }
-  .hero-title span {
-    display: block;
-    background: linear-gradient(135deg, #FFD60A 0%, #FF6B35 50%, #FF3D8A 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-style: italic;
-    /* KEY FIX: padding-bottom so the clipped descender of "y" is visible */
-    padding-bottom: 0.18em;
-    line-height: 1.05;
-  }
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.3rem); color: rgba(255,245,220,0.9); margin-top: 1.2rem;
-    font-weight: 300; letter-spacing: 0.03em; max-width: 520px; line-height: 1.6;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.6s;
-  }
-  .hero-cta {
-    display: inline-flex; align-items: center; gap: 0.8rem; margin-top: 2rem;
-    padding: 0.85rem 2rem; background: var(--grad-gold); color: #fff;
-    font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em;
-    text-transform: uppercase; text-decoration: none; font-weight: 700; transition: all 0.3s;
-    animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.8s;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-    box-shadow: 0 4px 20px rgba(200,90,20,0.4);
-  }
-  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,80,20,0.5); filter: brightness(1.1); }
-  .hero-scroll {
-    position: absolute; bottom: 2rem; right: 2.5rem;
-    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-    color: rgba(255,245,220,0.7); font-family: 'Space Mono', monospace; font-size: 0.6rem;
-    letter-spacing: 0.2em; writing-mode: vertical-rl; z-index: 2;
-    animation: fadeIn 2s ease forwards; opacity: 0; animation-delay: 1.2s;
-  }
-  .scroll-line {
-    width: 1px; height: 60px;
-    background: linear-gradient(to bottom, transparent, #FFD60A, #FF6B35);
-    animation: scrollPulse 2s ease infinite;
-  }
-  @keyframes scrollPulse { 0%, 100% { opacity: 0.4; transform: scaleY(0.7); } 50% { opacity: 1; transform: scaleY(1); } }
+  .hero-baybayin { font-size: clamp(2.5rem,7vw,5.5rem); color: rgba(255,220,140,0.45); letter-spacing: 0.15em; line-height: 1; margin-bottom: 0.3rem; font-family: 'Playfair Display', serif; animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.2s; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem,10vw,8rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; color: #ffffff; animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.4s; overflow: visible; }
+  .hero-title span { display: block; background: linear-gradient(135deg, #FFD60A 0%, #FF6B35 50%, #FF3D8A 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; padding-bottom: 0.22em; line-height: 1.1; overflow: visible; }
+  .hero-sub { font-size: clamp(1rem,2vw,1.3rem); color: rgba(255,245,220,0.9); margin-top: 1.2rem; font-weight: 300; letter-spacing: 0.03em; max-width: 520px; line-height: 1.6; animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.6s; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 0.8rem; margin-top: 2rem; padding: 0.85rem 2rem; background: var(--grad-gold); color: #fff; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; font-weight: 700; transition: all 0.3s; animation: fadeUp 1s ease forwards; opacity: 0; animation-delay: 0.8s; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); box-shadow: 0 4px 20px rgba(180,90,20,0.4); }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(180,70,20,0.5); filter: brightness(1.1); }
+  .hero-scroll { position: absolute; bottom: 2rem; right: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(255,245,220,0.7); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; writing-mode: vertical-rl; z-index: 2; animation: fadeIn 2s ease forwards; opacity: 0; animation-delay: 1.2s; }
+  .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, #FFD60A, #FF6B35); animation: scrollPulse 2s ease infinite; }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4;transform:scaleY(0.7);}50%{opacity:1;transform:scaleY(1);} }
 
-  /* ─── STAMP ─── */
-  .stamp-section {
-    position: relative; overflow: hidden; padding: 4rem 0;
-    background: linear-gradient(135deg, #fff8e8 0%, #fff0f5 50%, #e8f5ff 100%);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .stamp-text {
-    font-family: 'Playfair Display', serif; font-size: clamp(6rem, 18vw, 16rem);
-    font-weight: 900; color: transparent; -webkit-text-stroke: 2px rgba(200,133,10,0.2);
-    text-align: center; line-height: 0.85; user-select: none; letter-spacing: -0.03em;
-  }
-  .stamp-inner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 2; }
-  .stamp-inner p { font-size: clamp(0.9rem, 2vw, 1.2rem); color: var(--text-muted); letter-spacing: 0.3em; text-transform: uppercase; font-family: 'Space Mono', monospace; }
-  .stamp-inner .elev { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; background: var(--grad-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; line-height: 1; margin: 0.3rem 0; }
+  .stamp-section { position: relative; overflow: hidden; padding: 4rem 0; background: linear-gradient(135deg, #d8d0bc 0%, #d0ccc0 50%, #ccc8ba 100%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .stamp-text { font-family: 'Playfair Display', serif; font-size: clamp(6rem,18vw,16rem); font-weight: 900; color: transparent; -webkit-text-stroke: 2px rgba(184,122,8,0.18); text-align: center; line-height: 0.85; user-select: none; letter-spacing: -0.03em; }
+  .stamp-inner { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; z-index: 2; }
+  .stamp-inner p { font-size: clamp(0.9rem,2vw,1.2rem); color: var(--text-muted); letter-spacing: 0.3em; text-transform: uppercase; font-family: 'Space Mono', monospace; }
+  .stamp-inner .elev { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem,6vw,4.5rem); font-weight: 700; background: var(--grad-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; line-height: 1.15; margin: 0.3rem 0; padding-bottom: 0.15em; display: block; overflow: visible; }
 
-  /* ─── ABOUT ─── */
-  #about {
-    padding: 6rem 2.5rem;
-    background: var(--bg-alt);
-    position: relative; overflow: hidden;
-  }
-  #about::before {
-    content: 'ᜊᜄᜒᜌᜓ'; position: absolute; top: -1rem; right: -2rem;
-    font-size: 18rem; color: rgba(200,133,10,0.05);
-    font-family: 'Playfair Display', serif; pointer-events: none; line-height: 1;
-  }
-  .section-label {
-    font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
-  .section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--grad-gold); }
+  #about { padding: 6rem 2.5rem; background: var(--bg-alt); position: relative; overflow: hidden; }
+  #about::before { content: 'ᜊᜄᜒᜌᜓ'; position: absolute; top: -1rem; right: -2rem; font-size: 18rem; color: rgba(184,122,8,0.05); font-family: 'Playfair Display', serif; pointer-events: none; line-height: 1; }
+  .section-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1100px; margin: 0 auto; align-items: center; }
-  .about-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; color: var(--text-dark); }
+  .about-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,3.5rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; color: var(--text-dark); }
   .about-text h2 em { background: var(--grad-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; }
   .about-text p { font-size: 1.05rem; line-height: 1.8; color: var(--text-mid); margin-bottom: 1rem; font-weight: 300; }
   .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
   .stat-card { padding: 1.4rem; border: 1px solid var(--border-warm); background: var(--gold-pale); position: relative; overflow: hidden; transition: all 0.3s; }
-  .stat-card:hover { border-color: var(--gold); background: linear-gradient(135deg, #fff3d0, #ffe0d0); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(200,133,10,0.15); }
+  .stat-card:hover { border-color: var(--gold); background: linear-gradient(135deg,#e8d8a8,#e0c8a8); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(184,122,8,0.15); }
   .stat-card .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; background: var(--grad-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .stat-card .lbl { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
   .about-visual { position: relative; }
   .about-img-wrap { position: relative; overflow: hidden; }
-  .about-img-wrap::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--gold); transform: translate(12px, 12px); pointer-events: none; z-index: 0; }
+  .about-img-wrap::after { content: ''; position: absolute; inset: 0; border: 2px solid var(--gold); transform: translate(12px,12px); pointer-events: none; z-index: 0; }
   .about-img-wrap img { width: 100%; height: 480px; object-fit: cover; display: block; position: relative; z-index: 1; filter: saturate(0.95) contrast(1.05); transition: transform 0.6s ease; }
   .about-img-wrap:hover img { transform: scale(1.03); }
-  .baybayin-side { position: absolute; left: -3rem; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 2.5rem; color: rgba(200,133,10,0.2); letter-spacing: 0.3em; white-space: nowrap; font-family: 'Playfair Display', serif; pointer-events: none; }
+  .baybayin-side { position: absolute; left: -3rem; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 2.5rem; color: rgba(184,122,8,0.18); letter-spacing: 0.3em; white-space: nowrap; font-family: 'Playfair Display', serif; pointer-events: none; }
 
-  /* ─── GOVERNMENT ─── */
-  #government {
-    padding: 6rem 2.5rem;
-    background: linear-gradient(160deg, #f0f8ea 0%, #e8f4ff 50%, #fff8e8 100%);
-    position: relative;
-  }
-
+  #government { padding: 6rem 2.5rem; background: linear-gradient(160deg,#d8e4d4 0%,#d0dce8 50%,#e0d8c4 100%); position: relative; }
   .officials-section { max-width: 1100px; margin: 3rem auto 0; }
-  .officials-label {
-    font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
+  .officials-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem; }
   .officials-label::after { content: ''; flex: 1; height: 1px; background: var(--border-warm); }
-
-  .mayor-card {
-    display: flex; gap: 2.5rem; align-items: center;
-    background: var(--white); border: 1px solid var(--border-warm);
-    padding: 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden;
-    transition: all 0.3s; box-shadow: 0 4px 20px rgba(100,50,10,0.08);
-  }
+  .mayor-card { display: flex; gap: 2.5rem; align-items: center; background: var(--bg-card); border: 1px solid var(--border-warm); padding: 2.5rem; margin-bottom: 2rem; position: relative; overflow: hidden; transition: all 0.3s; box-shadow: 0 4px 20px rgba(100,50,10,0.08); }
   .mayor-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--grad-gold); }
   .mayor-card:hover { border-color: var(--gold); box-shadow: 0 16px 50px rgba(100,50,10,0.15); }
   .mayor-photo-wrap { width: 160px; height: 190px; flex-shrink: 0; border: 2px solid var(--gold); position: relative; overflow: hidden; }
@@ -261,107 +124,74 @@
   .mayor-photo-wrap .photo-placeholder p { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
   .mayor-info { flex: 1; }
   .mayor-role { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.5rem; }
-  .mayor-name { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 900; color: var(--text-dark); line-height: 1.1; margin-bottom: 0.8rem; }
+  .mayor-name { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 900; color: var(--text-dark); line-height: 1.1; margin-bottom: 0.8rem; }
   .mayor-desc { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; font-weight: 300; max-width: 500px; }
   .mayor-term { display: inline-block; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; border: 1px solid var(--border-warm); padding: 0.3rem 0.8rem; background: var(--gold-pale); }
-
-  .vicemayor-card {
-    display: flex; gap: 2rem; align-items: center;
-    background: var(--white); border: 1px solid rgba(26,122,170,0.2);
-    padding: 1.8rem; margin-bottom: 2rem; transition: all 0.3s;
-    box-shadow: 0 2px 10px rgba(26,122,170,0.07);
-  }
+  .vicemayor-card { display: flex; gap: 2rem; align-items: center; background: var(--bg-card); border: 1px solid rgba(26,106,154,0.2); padding: 1.8rem; margin-bottom: 2rem; transition: all 0.3s; box-shadow: 0 2px 10px rgba(26,106,154,0.06); }
   .vicemayor-card:hover { border-color: var(--blue); transform: translateX(4px); }
-  .vicemayor-photo-wrap { width: 110px; height: 130px; flex-shrink: 0; border: 1px solid rgba(26,122,170,0.3); overflow: hidden; }
+  .vicemayor-photo-wrap { width: 110px; height: 130px; flex-shrink: 0; border: 1px solid rgba(26,106,154,0.3); overflow: hidden; }
   .vicemayor-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; filter: saturate(0.9); transition: transform 0.4s; }
   .vicemayor-card:hover .vicemayor-photo-wrap img { transform: scale(1.04); }
-  .vicemayor-photo-wrap .photo-placeholder { width: 100%; height: 100%; background: #e8f4ff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; color: var(--blue); }
+  .vicemayor-photo-wrap .photo-placeholder { width: 100%; height: 100%; background: #ccdce8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; color: var(--blue); }
   .vicemayor-photo-wrap .photo-placeholder span { font-size: 2rem; }
   .vicemayor-info .vm-role { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.3rem; }
   .vicemayor-info .vm-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--text-dark); }
-
-  .councilors-label {
-    font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
+  .councilors-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
   .councilors-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .councilors-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 3rem; }
-  .councilor-card {
-    background: var(--white); border: 1px solid var(--border);
-    padding: 1.2rem; text-align: center; transition: all 0.3s; position: relative; overflow: hidden;
-    box-shadow: 0 2px 8px rgba(100,50,10,0.06);
-  }
+  .councilors-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-bottom: 3rem; }
+  .councilor-card { background: var(--bg-card); border: 1px solid var(--border); padding: 1.2rem; text-align: center; transition: all 0.3s; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(100,50,10,0.05); }
   .councilor-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--grad-gold); transform: scaleX(0); transition: transform 0.3s; }
   .councilor-card:hover::before { transform: scaleX(1); }
-  .councilor-card:hover { border-color: rgba(200,133,10,0.3); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(100,50,10,0.12); }
-  .councilor-photo-wrap { width: 80px; height: 90px; margin: 0 auto 0.8rem; border: 1px solid rgba(200,133,10,0.3); overflow: hidden; }
+  .councilor-card:hover { border-color: rgba(184,122,8,0.3); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(100,50,10,0.1); }
+  .councilor-photo-wrap { width: 80px; height: 90px; margin: 0 auto 0.8rem; border: 1px solid rgba(184,122,8,0.3); overflow: hidden; }
   .councilor-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; filter: saturate(0.85); transition: transform 0.4s; }
   .councilor-card:hover .councilor-photo-wrap img { transform: scale(1.06); }
   .councilor-photo-wrap .photo-placeholder { width: 100%; height: 100%; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1.8rem; }
   .councilor-num { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.3rem; opacity: 0.85; }
   .councilor-name { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 700; color: var(--text-dark); line-height: 1.2; }
-
   .offices-divider { display: flex; align-items: center; gap: 1.5rem; margin: 3rem 0 2rem; max-width: 1100px; }
   .offices-divider-line { flex: 1; height: 1px; background: var(--border); }
   .offices-divider-text { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-light); white-space: nowrap; }
-
-  .gov-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
-  .gov-card { background: var(--white); border: 1px solid var(--border); padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(100,50,10,0.05); }
+  .gov-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .gov-card { background: var(--bg-card); border: 1px solid var(--border); padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; box-shadow: 0 2px 8px rgba(100,50,10,0.05); }
   .gov-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--grad-gold); transition: height 0.3s; }
   .gov-card:hover::before { height: 100%; }
-  .gov-card:hover { transform: translateY(-4px); border-color: var(--border-warm); box-shadow: 0 12px 40px rgba(100,50,10,0.12); }
+  .gov-card:hover { transform: translateY(-4px); border-color: var(--border-warm); box-shadow: 0 12px 40px rgba(100,50,10,0.1); }
   .gov-icon { font-size: 1.8rem; margin-bottom: 1rem; }
   .gov-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; }
   .gov-card p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.6; font-weight: 300; }
   .gov-card a { display: inline-block; margin-top: 1rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: all 0.2s; }
   .gov-card a:hover { color: var(--coral); }
 
-  /* ─── TOURISM ─── */
   #tourism { padding: 6rem 2.5rem; background: var(--bg-alt); }
   .tourism-intro { max-width: 600px; margin: 0 auto 3.5rem; text-align: center; }
-  .tourism-intro h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; color: var(--text-dark); margin-bottom: 1rem; }
+  .tourism-intro h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,3rem); font-weight: 900; color: var(--text-dark); margin-bottom: 1rem; }
   .tourism-intro p { color: var(--text-mid); font-size: 1rem; line-height: 1.7; font-weight: 300; }
-  .places-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 1100px; margin: 0 auto; }
-  .place-card { position: relative; overflow: hidden; cursor: pointer; background: #ddd; }
+  .places-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; max-width: 1100px; margin: 0 auto; }
+  .place-card { position: relative; overflow: hidden; cursor: pointer; background: #b8b0a4; }
   .place-card:nth-child(1) { grid-column: 1 / 3; }
   .place-card img { width: 100%; height: 300px; object-fit: cover; display: block; transition: transform 0.6s ease; filter: saturate(0.9); }
   .place-card:nth-child(1) img { height: 380px; }
   .place-card:nth-child(2) img { object-position: center 30%; }
   .place-card:hover img { transform: scale(1.06); filter: saturate(1.05); }
-  .place-card-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(20,5,0,0.85) 0%, transparent 60%);
-    display: flex; flex-direction: column; justify-content: flex-end;
-    padding: 1.5rem; transition: background 0.3s;
-  }
-  .place-card:hover .place-card-overlay { background: linear-gradient(to top, rgba(20,5,0,0.92) 0%, rgba(20,5,0,0.15) 100%); }
+  .place-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(12,4,0,0.85) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; transition: background 0.3s; }
+  .place-card:hover .place-card-overlay { background: linear-gradient(to top, rgba(12,4,0,0.92) 0%, rgba(12,4,0,0.15) 100%); }
   .place-tag { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: #FFD60A; margin-bottom: 0.4rem; }
   .place-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #fff; line-height: 1.2; }
   .place-card:nth-child(1) h3 { font-size: 1.8rem; }
   .place-desc { font-size: 0.88rem; color: rgba(255,245,220,0.9); margin-top: 0.5rem; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; line-height: 1.5; font-weight: 300; }
   .place-card:hover .place-desc { max-height: 100px; }
 
-  /* ─── CULTURE ─── */
-  #culture {
-    padding: 6rem 2.5rem;
-    background: linear-gradient(160deg, #fffbf0 0%, #f5f8ff 50%, #fff5f8 100%);
-    position: relative; overflow: hidden;
-  }
+  #culture { padding: 6rem 2.5rem; background: linear-gradient(160deg,#e4dccb 0%,#d8e0e8 50%,#e0d4d8 100%); position: relative; overflow: hidden; }
   .culture-hero-text { text-align: center; max-width: 800px; margin: 0 auto 4rem; }
-  .culture-hero-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; color: var(--text-dark); line-height: 1.1; margin-bottom: 1rem; }
+  .culture-hero-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem,6vw,4rem); font-weight: 900; color: var(--text-dark); line-height: 1.1; margin-bottom: 1rem; }
   .culture-hero-text h2 em { background: var(--grad-warm); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; }
   .culture-hero-text p { color: var(--text-mid); font-size: 1rem; line-height: 1.7; font-weight: 300; }
   .culture-strips { display: flex; flex-direction: column; gap: 1px; max-width: 1100px; margin: 0 auto; }
-  .culture-strip {
-    display: grid; grid-template-columns: 60px 1fr 280px 2rem; align-items: center;
-    padding: 1.8rem 2rem; background: var(--white); border: 1px solid var(--border);
-    transition: all 0.3s; gap: 2rem; cursor: default;
-    box-shadow: 0 1px 4px rgba(100,50,10,0.05);
-  }
-  .culture-strip:hover { background: #fffbf5; border-color: var(--border-warm); padding-left: 3rem; box-shadow: 0 4px 20px rgba(100,50,10,0.1); }
-  .culture-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: linear-gradient(135deg, rgba(200,133,10,0.3), rgba(192,48,106,0.25)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; transition: all 0.3s; }
-  .culture-strip:hover .culture-num { background: linear-gradient(135deg, rgba(200,133,10,0.8), rgba(192,48,106,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .culture-strip { display: grid; grid-template-columns: 60px 1fr 280px 2rem; align-items: center; padding: 1.8rem 2rem; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.3s; gap: 2rem; cursor: default; box-shadow: 0 1px 4px rgba(100,50,10,0.04); }
+  .culture-strip:hover { background: #e8dece; border-color: var(--border-warm); padding-left: 3rem; box-shadow: 0 4px 20px rgba(100,50,10,0.08); }
+  .culture-num { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 900; background: linear-gradient(135deg,rgba(184,122,8,0.3),rgba(176,40,96,0.25)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; transition: all 0.3s; }
+  .culture-strip:hover .culture-num { background: linear-gradient(135deg,rgba(184,122,8,0.85),rgba(176,40,96,0.75)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .culture-strip-content h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.3rem; }
   .culture-strip-content p { font-size: 0.92rem; color: var(--text-mid); line-height: 1.5; font-weight: 300; }
   .culture-photo-wrap { width: 280px; height: 160px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--border-warm); position: relative; }
@@ -372,73 +202,57 @@
   .culture-photo-wrap .photo-placeholder p { font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; line-height: 1.5; color: var(--text-muted); }
   .culture-emoji { font-size: 2rem; flex-shrink: 0; }
 
-  /* ─── VISIT ─── */
   #visit { padding: 6rem 2.5rem; background: var(--bg-alt); position: relative; }
   .visit-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; max-width: 1100px; margin: 3rem auto 0; align-items: start; }
-  .visit-info h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 900; color: var(--text-dark); margin-bottom: 1.5rem; line-height: 1.1; }
+  .visit-info h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,2.8rem); font-weight: 900; color: var(--text-dark); margin-bottom: 1.5rem; line-height: 1.1; }
   .visit-info h2 em { background: var(--grad-sky); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-style: italic; }
   .visit-item { display: flex; gap: 1.2rem; padding: 1.2rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
   .visit-item-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
   .visit-item h4 { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--coral); margin-bottom: 0.3rem; }
   .visit-item p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.6; font-weight: 300; }
-
-  .weather-widget {
-    background: linear-gradient(135deg, #e8f5ff 0%, #e8f8e0 50%, #fff8e8 100%);
-    border: 1px solid rgba(26,122,170,0.2);
-    padding: 2.5rem; position: relative; overflow: hidden;
-    box-shadow: 0 4px 20px rgba(26,122,170,0.1);
-  }
-  .weather-widget::before { content: '☁'; position: absolute; font-size: 10rem; color: rgba(26,122,170,0.06); top: -2rem; right: -2rem; pointer-events: none; }
+  .weather-widget { background: linear-gradient(135deg,#c4d8e8 0%,#c4d8c0 50%,#d8ceb4 100%); border: 1px solid rgba(26,106,154,0.2); padding: 2.5rem; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(26,106,154,0.08); }
+  .weather-widget::before { content: '☁'; position: absolute; font-size: 10rem; color: rgba(26,106,154,0.05); top: -2rem; right: -2rem; pointer-events: none; }
   .weather-widget h3 { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 1.5rem; }
-  .temp-display { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; background: var(--grad-sky); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 0.3rem; }
+  .temp-display { font-family: 'Playfair Display', serif; font-size: 5rem; font-weight: 900; background: var(--grad-sky); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.15; margin-bottom: 0.3rem; padding-bottom: 0.1em; display: block; overflow: visible; }
   .temp-display sup { font-size: 2rem; vertical-align: super; }
   .weather-desc { font-size: 1rem; color: var(--text-mid); font-style: italic; margin-bottom: 2rem; }
   .season-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
-  .season-item { padding: 1rem; background: rgba(255,255,255,0.7); border: 1px solid rgba(26,122,170,0.15); }
+  .season-item { padding: 1rem; background: rgba(255,255,255,0.35); border: 1px solid rgba(26,106,154,0.12); }
   .season-item .s-name { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 0.3rem; }
   .season-item .s-temp { font-size: 1.3rem; font-weight: 600; color: var(--text-dark); font-family: 'Playfair Display', serif; }
   .season-item .s-desc { font-size: 0.8rem; color: var(--text-mid); margin-top: 0.2rem; }
 
-  /* ─── BAYBAYIN BANNER ─── */
-  .baybayin-banner { background: linear-gradient(90deg, #c8850a 0%, #d94f20 20%, #c0306a 40%, #1a7aaa 60%, #3a8a28 80%, #c8850a 100%); padding: 1.5rem; overflow: hidden; position: relative; }
+  .baybayin-banner { background: linear-gradient(90deg,#b87a08 0%,#c04418 20%,#b02860 40%,#1a6a9a 60%,#387820 80%,#b87a08 100%); padding: 1.5rem; overflow: hidden; position: relative; }
   .baybayin-scroll { display: flex; gap: 3rem; animation: scrollBanner 20s linear infinite; white-space: nowrap; }
   .baybayin-banner:hover .baybayin-scroll { animation-play-state: paused; }
-  @keyframes scrollBanner { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes scrollBanner { from{transform:translateX(0);} to{transform:translateX(-50%);} }
   .bb-item { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; font-family: 'Playfair Display', serif; }
-  .bb-script { font-size: 1.8rem; color: rgba(255,255,255,0.85); font-weight: 700; }
-  .bb-trans { font-size: 0.7rem; font-family: 'Space Mono', monospace; letter-spacing: 0.15em; color: rgba(255,255,255,0.7); text-transform: uppercase; }
-  .bb-sep { font-size: 1.2rem; color: rgba(255,255,255,0.35); }
+  .bb-script { font-size: 1.8rem; color: rgba(255,255,255,0.88); font-weight: 700; }
+  .bb-trans { font-size: 0.7rem; font-family: 'Space Mono', monospace; letter-spacing: 0.15em; color: rgba(255,255,255,0.72); text-transform: uppercase; }
+  .bb-sep { font-size: 1.2rem; color: rgba(255,255,255,0.32); }
 
-  /* ─── FOOTER ─── */
-  footer {
-    background: linear-gradient(135deg, #1a0d2e 0%, #0c1520 50%, #1a0d2e 100%);
-    border-top: 1px solid rgba(200,133,10,0.3);
-    padding: 3rem 2.5rem 2rem;
-    color: rgba(255,245,220,0.8);
-  }
+  footer { background: linear-gradient(135deg,#1a0d2e 0%,#0c1520 50%,#1a0d2e 100%); border-top: 1px solid rgba(184,122,8,0.3); padding: 3rem 2.5rem 2rem; color: rgba(255,245,220,0.8); }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1100px; margin: 0 auto; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
   .footer-brand .logo-city { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; background: var(--grad-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; margin-bottom: 0.2rem; }
   .footer-brand .logo-tagline { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; color: rgba(255,245,220,0.5); text-transform: uppercase; display: block; margin-bottom: 1rem; }
-  .footer-brand p { font-size: 0.88rem; color: rgba(255,245,220,0.65); line-height: 1.6; font-weight: 300; max-width: 280px; }
-  .footer-col h4 { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: #e8a020; margin-bottom: 1rem; }
+  .footer-brand p { font-size: 0.88rem; color: rgba(255,245,220,0.62); line-height: 1.6; font-weight: 300; max-width: 280px; }
+  .footer-col h4 { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: #d4901a; margin-bottom: 1rem; }
   .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
   .footer-col ul li a { font-size: 0.9rem; color: rgba(255,245,220,0.6); text-decoration: none; transition: color 0.2s; font-weight: 300; }
   .footer-col ul li a:hover { color: #FFD60A; }
   .footer-bottom { max-width: 1100px; margin: 1.5rem auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-  .footer-bottom p { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; color: rgba(200,133,10,0.45); text-transform: uppercase; }
-  .footer-bottom a { color: rgba(200,133,10,0.6); text-decoration: none; }
+  .footer-bottom p { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.12em; color: rgba(184,122,8,0.45); text-transform: uppercase; }
+  .footer-bottom a { color: rgba(184,122,8,0.6); text-decoration: none; }
   .footer-bottom a:hover { color: #FFD60A; }
-  .footer-baybayin { font-size: 1.5rem; color: rgba(200,133,10,0.35); letter-spacing: 0.2em; }
+  .footer-baybayin { font-size: 1.5rem; color: rgba(184,122,8,0.32); letter-spacing: 0.2em; }
 
-  /* ─── ANIMATIONS ─── */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+  @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
   .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ─── RESPONSIVE ─── */
   @media (max-width: 1024px) {
-    .councilors-grid { grid-template-columns: repeat(3, 1fr); }
+    .councilors-grid { grid-template-columns: repeat(3,1fr); }
     .culture-strip { grid-template-columns: 60px 1fr; }
     .culture-photo-wrap { width: 100%; height: 140px; }
     .culture-emoji { display: none; }
@@ -453,32 +267,18 @@
     .about-img-wrap::after { display: none; }
     .mayor-card { flex-direction: column; text-align: center; }
     .mayor-card::before { width: 100%; height: 4px; }
-    .councilors-grid { grid-template-columns: repeat(2, 1fr); }
+    .councilors-grid { grid-template-columns: repeat(2,1fr); }
     .culture-strip { grid-template-columns: 60px 1fr; }
     .culture-photo-wrap { width: 100%; height: 140px; display: block; }
     .culture-emoji { display: none; }
   }
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; position: relative; }
-    .nav-links {
-      display: none; flex-direction: column; position: absolute;
-      top: 100%; left: 0; right: 0;
-      background: rgba(255,252,247,0.98);
-      border-bottom: 1px solid var(--border-warm);
-      padding: 0.5rem 0 1rem; gap: 0;
-      max-width: unset; max-height: unset; opacity: 1;
-      backdrop-filter: blur(14px); z-index: 999;
-    }
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(222,212,198,0.98); border-bottom: 1px solid var(--border-warm); padding: 0.5rem 0 1rem; gap: 0; max-width: unset; max-height: unset; opacity: 1; backdrop-filter: blur(14px); z-index: 999; }
     .nav-links.mobile-open { display: flex; }
     .nav-links a { padding: 1.5rem 2rem; font-size: 0.75rem; border-bottom: 1px solid var(--border); line-height: 4; color: var(--text-mid); }
-    #nav-toggle {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: var(--gold-pale); border: 1px solid var(--border-warm);
-      color: var(--gold); font-family: 'Space Mono', monospace;
-      font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 0.4rem 0.9rem; cursor: pointer; transition: all 0.25s; border-radius: 2px;
-    }
-    #nav-toggle:hover { background: #ffe8b0; border-color: var(--gold); }
+    #nav-toggle { display: flex; align-items: center; gap: 0.5rem; background: var(--gold-pale); border: 1px solid var(--border-warm); color: var(--gold); font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.4rem 0.9rem; cursor: pointer; transition: all 0.25s; border-radius: 2px; }
+    #nav-toggle:hover { background: #d8c890; border-color: var(--gold); }
     .hero-content { padding: 0 1.5rem 4rem; }
     .hero-scroll { display: none; }
     #about, #government, #tourism, #culture, #visit { padding: 4rem 1.5rem; }
@@ -489,8 +289,8 @@
     .stat-grid { grid-template-columns: 1fr 1fr; }
     .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
     .footer-bottom { flex-direction: column; text-align: center; }
-    .stamp-text { font-size: clamp(4rem, 20vw, 8rem); }
-    .councilors-grid { grid-template-columns: repeat(2, 1fr); }
+    .stamp-text { font-size: clamp(4rem,20vw,8rem); }
+    .councilors-grid { grid-template-columns: repeat(2,1fr); }
     .culture-strip { grid-template-columns: 1fr; gap: 0.8rem; padding: 1.2rem; }
     .culture-num { font-size: 2rem; }
     .culture-photo-wrap { width: 100%; height: 180px; display: block; }
@@ -502,39 +302,19 @@
     .councilors-grid { grid-template-columns: 1fr 1fr; }
   }
 
-  /* ─── STRAWBERRY COMPANION ─── */
-  #strawberry-companion {
-    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
-    display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
-    font-family: 'Crimson Pro', Georgia, serif;
-  }
-  #fact-bubble {
-    background: #fffbf5; border: 1.5px solid #e8b4a0;
-    border-radius: 16px 16px 4px 16px; padding: 12px 15px;
-    max-width: 230px; min-width: 180px;
-    box-shadow: 0 4px 20px rgba(200,80,60,0.15);
-    opacity: 0; transform: translateY(8px) scale(0.97);
-    transition: opacity 0.35s ease, transform 0.35s ease; pointer-events: none;
-  }
+  #strawberry-companion { position: fixed; bottom: 28px; right: 28px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; font-family: 'Crimson Pro', Georgia, serif; }
+  #fact-bubble { background: #fffbf5; border: 1.5px solid #e8b4a0; border-radius: 16px 16px 4px 16px; padding: 12px 15px; max-width: 230px; min-width: 180px; box-shadow: 0 4px 20px rgba(200,80,60,0.15); opacity: 0; transform: translateY(8px) scale(0.97); transition: opacity 0.35s ease, transform 0.35s ease; pointer-events: none; }
   #fact-bubble.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
-  #fact-bubble .fact-label {
-    font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.18em;
-    text-transform: uppercase; color: #c0306a; margin-bottom: 6px;
-    display: flex; align-items: center; gap: 5px;
-  }
+  #fact-bubble .fact-label { font-family: 'Space Mono', monospace; font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: #c0306a; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
   #fact-bubble .fact-text { font-size: 0.88rem; color: #3a1a0a; line-height: 1.55; font-weight: 400; transition: opacity 0.2s ease; }
   #fact-counter { font-family: 'Space Mono', monospace; font-size: 0.45rem; color: rgba(150,80,40,0.5); letter-spacing: 0.1em; text-align: right; margin-top: 5px; }
-  #berry-btn {
-    width: 62px; height: 68px; cursor: pointer; border: none; background: none; padding: 0;
-    filter: drop-shadow(0 4px 10px rgba(200,60,60,0.3));
-    transition: transform 0.2s cubic-bezier(.34,1.56,.64,1); flex-shrink: 0;
-  }
+  #berry-btn { width: 62px; height: 68px; cursor: pointer; border: none; background: none; padding: 0; filter: drop-shadow(0 4px 10px rgba(200,60,60,0.3)); transition: transform 0.2s cubic-bezier(.34,1.56,.64,1); flex-shrink: 0; }
   #berry-btn:hover { transform: scale(1.1) rotate(-4deg); }
   #berry-btn:active { transform: scale(0.95); }
   #berry-btn.talking { animation: berry-talk 0.4s ease-in-out infinite alternate; }
   #berry-btn.idle { animation: berry-float 3s ease-in-out infinite; }
-  @keyframes berry-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-  @keyframes berry-talk { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-4px) scale(1.05) rotate(-3deg); } }
+  @keyframes berry-float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);} }
+  @keyframes berry-talk { 0%{transform:translateY(0) scale(1);}100%{transform:translateY(-4px) scale(1.05) rotate(-3deg);} }
 </style>
 </head>
 <body>
@@ -583,34 +363,20 @@
 
 <div class="baybayin-banner">
   <div class="baybayin-scroll">
-    <div class="bb-item"><span class="bb-script">ᜊᜄᜒᜌᜓ</span><span class="bb-trans">Baguio</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜑᜐᜒᜐᜒ</span><span class="bb-trans">HCC</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜉᜒᜎᜒᜉᜒᜈᜐ᜔</span><span class="bb-trans">Pilipinas</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜊᜄᜒᜌᜓ</span><span class="bb-trans">Baguio</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜉᜒᜎᜒᜈᜐ᜔</span><span class="bb-trans">Pilipinas</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜑᜐᜒᜐᜒ</span><span class="bb-trans">HCC</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜊᜄᜒᜌᜓ</span><span class="bb-trans">Baguio</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜉᜒᜎᜒᜈᜐ᜔</span><span class="bb-trans">Pilipinas</span></div>
-    <span class="bb-sep">✦</span>
-    <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div>
-    <span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜊᜄᜒᜌᜓ</span><span class="bb-trans">Baguio</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜑᜐᜒᜐᜒ</span><span class="bb-trans">HCC</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜉᜒᜎᜒᜉᜒᜈᜐ᜔</span><span class="bb-trans">Pilipinas</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜊᜄᜒᜌᜓ</span><span class="bb-trans">Baguio</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜉᜒᜎᜒᜈᜐ᜔</span><span class="bb-trans">Pilipinas</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜑᜐᜒᜐᜒ</span><span class="bb-trans">HCC</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜊᜄᜒᜌᜓ</span><span class="bb-trans">Baguio</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜃᜒᜌᜓᜇᜇ</span><span class="bb-trans">Kiuyad · Mountain</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜉᜒᜎᜒᜈᜐ᜔</span><span class="bb-trans">Pilipinas</span></div><span class="bb-sep">✦</span>
+    <div class="bb-item"><span class="bb-script">ᜃᜒᜆᜓ</span><span class="bb-trans">Kita · We</span></div><span class="bb-sep">✦</span>
   </div>
 </div>
 
@@ -652,10 +418,8 @@
   <div style="max-width:1100px;margin:0 auto;">
     <div class="section-label reveal">02 · Government</div>
     <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;color:var(--text-dark);max-width:600px;line-height:1.1;margin-top:0.5rem;margin-bottom:2.5rem;">Serving the people of <em style="background:var(--grad-gold);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;">Baguio.</em></h2>
-
     <div class="officials-section">
       <div class="officials-label reveal">City Officials</div>
-
       <div class="mayor-card reveal">
         <div class="mayor-photo-wrap">
           <img src="https://www.rappler.com/tachyon/2023/01/magalong.jpg" alt="City Mayor" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -668,7 +432,6 @@
           <span class="mayor-term">Term: 2025 – 2028</span>
         </div>
       </div>
-
       <div class="vicemayor-card reveal">
         <div class="vicemayor-photo-wrap">
           <img src="https://northluzon.politiko.com.ph/wp-content/uploads/2025/03/Baguio-City-Sangguniang-Panlungsod.jpg" alt="Vice Mayor" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
@@ -679,102 +442,23 @@
           <div class="vm-name">Faustino A. Olowan</div>
         </div>
       </div>
-
       <div class="councilors-label reveal">Councilors of District of Baguio City</div>
       <div class="councilors-grid">
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://northluzon.politiko.com.ph/wp-content/uploads/2017/10/north-Vice-Mayor-Edison-Bilog.jpg" alt="Councilor 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 1</div>
-          <div class="councilor-name">Edison Bilog</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://ptvnews.ph/wp-content/uploads/2018/10/baguio-councilor-alangsab.jpg" alt="Councilor 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 2</div>
-          <div class="councilor-name">Joel Alangsab</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D224377203649219&f=1&nofb=1&ipt=5e0020b58d119715acf7d019638fc5d5d5f56c6fec226926cc7bc1f5cee84827" alt="Councilor 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 3</div>
-          <div class="councilor-name">Jose M. Molintas</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100063540918936&f=1&nofb=1&ipt=423b6904aaec8e166b43bc8b0e9bcf6d55b5b0511ab9b562e0ee73ae9f559503" alt="Councilor 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 4</div>
-          <div class="councilor-name">Leandro B. Yañgot Jr.</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D1828459523&f=1&nofb=1&ipt=5c1cdeccd3eecf2342246b97738c7a64fec3887375987e1a81fec637ad1cb6f7" alt="Councilor 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 5</div>
-          <div class="councilor-name">Vladimir D. Cayabas</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbaguioheraldexpressonline.com%2Fwp-content%2Fuploads%2F2018%2F02%2Fpeter-fianza.jpg&f=1&nofb=1&ipt=8987c6032d5f46fd067b8916df3226f7efffc9f3d1d93c0cc24d6ff921c540e8" alt="Councilor 6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 6</div>
-          <div class="councilor-name">Peter C. Fianza</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100004164604802&f=1&nofb=1&ipt=5571a3f54ddc55c3b8d80bdfc3bb12e1142e8a5bdc671f81cc38219252c9d2c8" alt="Councilor 7" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 7</div>
-          <div class="councilor-name">Van Dicang</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100063808669716&f=1&nofb=1&ipt=8bc8d739a25cdaa74a4d1501f9033176b73e30106031cfc49b22ec685814fd60" alt="Councilor 8" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 8</div>
-          <div class="councilor-name">Fred L. Bagbagen</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://www.fildravo.com/wp-content/uploads/2023/07/Paolo2.png" alt="Councilor 9" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 9</div>
-          <div class="councilor-name">Paolo Salvosa</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D1170047288493154&f=1&nofb=1&ipt=3ede122e99704e9a3fb91229299f7177598b077aea67c54288ca263a638991cd" alt="Councilor 10" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 10</div>
-          <div class="councilor-name">Betty Lourdes F. Tabanda</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D61566568726136&f=1&nofb=1&ipt=45978a6e1100bf06d6fc8e0c57ff54ae52399322b83ff38529a82cce069f77e5" alt="Councilor 11" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 11</div>
-          <div class="councilor-name">Yuri Weygan</div>
-        </div>
-        <div class="councilor-card reveal">
-          <div class="councilor-photo-wrap">
-            <img src="https://demo-baguio-lguapi.tondosolutions.com/media/councilor_images/Screenshot_2025-09-08_124146.webp" alt="Councilor 12" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div>
-          </div>
-          <div class="councilor-num">Councilor 12</div>
-          <div class="councilor-name">Elmer Orzal Datuin</div>
-        </div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://northluzon.politiko.com.ph/wp-content/uploads/2017/10/north-Vice-Mayor-Edison-Bilog.jpg" alt="Councilor 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 1</div><div class="councilor-name">Edison Bilog</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://ptvnews.ph/wp-content/uploads/2018/10/baguio-councilor-alangsab.jpg" alt="Councilor 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 2</div><div class="councilor-name">Joel Alangsab</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D224377203649219&f=1&nofb=1&ipt=5e0020b58d119715acf7d019638fc5d5d5f56c6fec226926cc7bc1f5cee84827" alt="Councilor 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 3</div><div class="councilor-name">Jose M. Molintas</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100063540918936&f=1&nofb=1&ipt=423b6904aaec8e166b43bc8b0e9bcf6d55b5b0511ab9b562e0ee73ae9f559503" alt="Councilor 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 4</div><div class="councilor-name">Leandro B. Yañgot Jr.</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D1828459523&f=1&nofb=1&ipt=5c1cdeccd3eecf2342246b97738c7a64fec3887375987e1a81fec637ad1cb6f7" alt="Councilor 5" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 5</div><div class="councilor-name">Vladimir D. Cayabas</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbaguioheraldexpressonline.com%2Fwp-content%2Fuploads%2F2018%2F02%2Fpeter-fianza.jpg&f=1&nofb=1&ipt=8987c6032d5f46fd067b8916df3226f7efffc9f3d1d93c0cc24d6ff921c540e8" alt="Councilor 6" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 6</div><div class="councilor-name">Peter C. Fianza</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100004164604802&f=1&nofb=1&ipt=5571a3f54ddc55c3b8d80bdfc3bb12e1142e8a5bdc671f81cc38219252c9d2c8" alt="Councilor 7" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 7</div><div class="councilor-name">Van Dicang</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D100063808669716&f=1&nofb=1&ipt=8bc8d739a25cdaa74a4d1501f9033176b73e30106031cfc49b22ec685814fd60" alt="Councilor 8" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 8</div><div class="councilor-name">Fred L. Bagbagen</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://www.fildravo.com/wp-content/uploads/2023/07/Paolo2.png" alt="Councilor 9" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 9</div><div class="councilor-name">Paolo Salvosa</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D1170047288493154&f=1&nofb=1&ipt=3ede122e99704e9a3fb91229299f7177598b077aea67c54288ca263a638991cd" alt="Councilor 10" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 10</div><div class="councilor-name">Betty Lourdes F. Tabanda</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D61566568726136&f=1&nofb=1&ipt=45978a6e1100bf06d6fc8e0c57ff54ae52399322b83ff38529a82cce069f77e5" alt="Councilor 11" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 11</div><div class="councilor-name">Yuri Weygan</div></div>
+        <div class="councilor-card reveal"><div class="councilor-photo-wrap"><img src="https://demo-baguio-lguapi.tondosolutions.com/media/councilor_images/Screenshot_2025-09-08_124146.webp" alt="Councilor 12" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:flex;">👤</div></div><div class="councilor-num">Councilor 12</div><div class="councilor-name">Elmer Orzal Datuin</div></div>
       </div>
     </div>
-
-    <div class="offices-divider reveal">
-      <div class="offices-divider-line"></div>
-      <div class="offices-divider-text">City Offices & Departments</div>
-      <div class="offices-divider-line"></div>
-    </div>
-
+    <div class="offices-divider reveal"><div class="offices-divider-line"></div><div class="offices-divider-text">City Offices & Departments</div><div class="offices-divider-line"></div></div>
     <div class="gov-grid">
       <div class="gov-card reveal"><div class="gov-icon">🌿</div><h3>CENRO</h3><p>City Environment and Natural Resources Office — protecting Baguio's pine forests, parks, and natural ecosystems.</p><a href="https://baguiobenguetdirectory.com/directory/denr-cenro-baguio/">Learn more →</a></div>
       <div class="gov-card reveal"><div class="gov-icon">🏫</div><h3>Schools Division</h3><p>Overseeing public education in Baguio City, home to top universities and the Country's leading educational institutions.</p><a href="https://www.globgov.com/PH/Baguio-City/172157/genre/199405806739848/Public+Schools">Learn more →</a></div>
@@ -787,31 +471,13 @@
 <section id="tourism">
   <div style="max-width:1100px;margin:0 auto;">
     <div class="section-label reveal" style="justify-content:center;">03 · Tourism</div>
-    <div class="tourism-intro reveal">
-      <h2>There's always a reason to come back.</h2>
-      <p>From misty mountain peaks to vibrant night markets — Baguio holds a universe of wonders waiting to be discovered.</p>
-    </div>
+    <div class="tourism-intro reveal"><h2>There's always a reason to come back.</h2><p>From misty mountain peaks to vibrant night markets — Baguio holds a universe of wonders waiting to be discovered.</p></div>
     <div class="places-grid">
-      <div class="place-card reveal">
-        <img src="https://baguiocityguide.com/wp-content/uploads/2021/04/Baguio-City-Tourist-Burnham-Park-GCQ-1024x576.jpg" alt="Burnham Park" loading="lazy">
-        <div class="place-card-overlay"><div class="place-tag">Iconic Landmark</div><h3>Burnham Park</h3><p class="place-desc">The beating heart of Baguio — a beloved park where boating, cycling, and picnics are a daily ritual for locals and tourists alike.</p></div>
-      </div>
-      <div class="place-card reveal">
-        <img src="https://baguiocityguide.com/wp-content/uploads/2021/11/Mines-View-Park-Baguio-1024x576.jpg" alt="Mines View Park" loading="lazy">
-        <div class="place-card-overlay"><div class="place-tag">Scenic Viewpoint</div><h3>Mines View Park</h3><p class="place-desc">A breathtaking panorama of the Cordillera mountain range and old gold mines — plus amazing Igorot cultural displays.</p></div>
-      </div>
-      <div class="place-card reveal">
-        <img src="https://i.pinimg.com/736x/46/15/42/461542f0da2d5e62574a1d8458534131.jpg" alt="Strawberry Farm" loading="lazy">
-        <div class="place-card-overlay"><div class="place-tag">Agri-Tourism</div><h3>Strawberry Farm</h3><p class="place-desc">La Trinidad's famous strawberry patches where you can pick your own berries straight from the highland earth.</p></div>
-      </div>
-      <div class="place-card reveal">
-        <img src="https://mybaguiocityguide.com/wp-content/uploads/2023/07/the-mansion-baguio.jpg" alt="The Mansion" loading="lazy">
-        <div class="place-card-overlay"><div class="place-tag">Heritage Site</div><h3>The Mansion</h3><p class="place-desc">The official summer residence of the Philippine President — a grand colonial estate that has stood since 1908.</p></div>
-      </div>
-      <div class="place-card reveal">
-        <img src="http://4.bp.blogspot.com/-CE15CB4hd4Q/VeWEIqO2eEI/AAAAAAAAOw4/9hUjPL9bYEo/s1600/session-road-baguio-city-2.jpg" alt="Session Road" loading="lazy">
-        <div class="place-card-overlay"><div class="place-tag">Urban Lifestyle</div><h3>Session Road</h3><p class="place-desc">The spine of the city — a vibrant stretch of cafés, shops, restaurants, and the legendary Night Market below.</p></div>
-      </div>
+      <div class="place-card reveal"><img src="https://baguiocityguide.com/wp-content/uploads/2021/04/Baguio-City-Tourist-Burnham-Park-GCQ-1024x576.jpg" alt="Burnham Park" loading="lazy"><div class="place-card-overlay"><div class="place-tag">Iconic Landmark</div><h3>Burnham Park</h3><p class="place-desc">The beating heart of Baguio — a beloved park where boating, cycling, and picnics are a daily ritual for locals and tourists alike.</p></div></div>
+      <div class="place-card reveal"><img src="https://baguiocityguide.com/wp-content/uploads/2021/11/Mines-View-Park-Baguio-1024x576.jpg" alt="Mines View Park" loading="lazy"><div class="place-card-overlay"><div class="place-tag">Scenic Viewpoint</div><h3>Mines View Park</h3><p class="place-desc">A breathtaking panorama of the Cordillera mountain range and old gold mines — plus amazing Igorot cultural displays.</p></div></div>
+      <div class="place-card reveal"><img src="https://i.pinimg.com/736x/46/15/42/461542f0da2d5e62574a1d8458534131.jpg" alt="Strawberry Farm" loading="lazy"><div class="place-card-overlay"><div class="place-tag">Agri-Tourism</div><h3>Strawberry Farm</h3><p class="place-desc">La Trinidad's famous strawberry patches where you can pick your own berries straight from the highland earth.</p></div></div>
+      <div class="place-card reveal"><img src="https://mybaguiocityguide.com/wp-content/uploads/2023/07/the-mansion-baguio.jpg" alt="The Mansion" loading="lazy"><div class="place-card-overlay"><div class="place-tag">Heritage Site</div><h3>The Mansion</h3><p class="place-desc">The official summer residence of the Philippine President — a grand colonial estate that has stood since 1908.</p></div></div>
+      <div class="place-card reveal"><img src="http://4.bp.blogspot.com/-CE15CB4hd4Q/VeWEIqO2eEI/AAAAAAAAOw4/9hUjPL9bYEo/s1600/session-road-baguio-city-2.jpg" alt="Session Road" loading="lazy"><div class="place-card-overlay"><div class="place-tag">Urban Lifestyle</div><h3>Session Road</h3><p class="place-desc">The spine of the city — a vibrant stretch of cafés, shops, restaurants, and the legendary Night Market below.</p></div></div>
     </div>
   </div>
 </section>
@@ -824,51 +490,11 @@
       <p>Baguio is the crossroads of multiple Cordilleran peoples — Ibaloi, Kankanaey, Ifugao — where indigenous traditions are not museum pieces but living, breathing culture.</p>
     </div>
     <div class="culture-strips">
-      <div class="culture-strip reveal">
-        <div class="culture-num">01</div>
-        <div class="culture-strip-content"><h3>Panagbenga Festival</h3><p>The grand Flower Festival every February — a month-long explosion of blooms, street dancing, and Baguio pride that draws visitors nationwide.</p></div>
-        <div class="culture-photo-wrap">
-          <img src="https://media.philstar.com/photos/2022/12/04/gen4-panagbenga-festival2018-02-2422-22-56_2022-12-04_12-28-29.jpg" alt="Panagbenga Festival" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;"><span>🌸</span><p>Panagbenga<br>Photo Here</p></div>
-        </div>
-        <div class="culture-emoji">🌸</div>
-      </div>
-      <div class="culture-strip reveal">
-        <div class="culture-num">02</div>
-        <div class="culture-strip-content"><h3>BenCab Museum</h3><p>Home to the works of National Artist Benedicto Cabrera — nestled in an eco-garden that showcases Filipino art, indigenous artifacts, and Cordilleran heritage.</p></div>
-        <div class="culture-photo-wrap">
-          <img src="http://farm4.staticflickr.com/3769/11381391845_8f7f6ba794_o.jpg" alt="BenCab Museum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;"><span>🎨</span><p>BenCab Museum<br>Photo Here</p></div>
-        </div>
-        <div class="culture-emoji">🎨</div>
-      </div>
-      <div class="culture-strip reveal">
-        <div class="culture-num">03</div>
-        <div class="culture-strip-content"><h3>Igorot Weaving</h3><p>The intricate hand-woven textiles of the Cordillera — each pattern a story of lineage, rank, and identity passed down through generations of masterful weavers.</p></div>
-        <div class="culture-photo-wrap">
-          <img src="https://baguioheraldexpressonline.com/wp-content/uploads/2019/11/cordillera-weaver-111719.jpg" alt="Igorot Weaving" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;"><span>🧵</span><p>Igorot Weaving<br>Photo Here</p></div>
-        </div>
-        <div class="culture-emoji">🧵</div>
-      </div>
-      <div class="culture-strip reveal">
-        <div class="culture-num">04</div>
-        <div class="culture-strip-content"><h3>Night Market</h3><p>Below Session Road every evening — a beloved Baguio ritual of ukay-ukay, street food, warm jackets, and the unmistakable smell of strawberry taho.</p></div>
-        <div class="culture-photo-wrap">
-          <img src="https://live.staticflickr.com/8567/15992561950_da6c7ecae9_k.jpg" alt="Night Market" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;"><span>🌙</span><p>Night Market<br>Photo Here</p></div>
-        </div>
-        <div class="culture-emoji">🌙</div>
-      </div>
-      <div class="culture-strip reveal">
-        <div class="culture-num">05</div>
-        <div class="culture-strip-content"><h3>Pasalubong Culture</h3><p>Baguio's iconic pasalubong scene — ube jam, peanut brittle, pine needle crafts, and woven goods that carry a piece of the mountain home.</p></div>
-        <div class="culture-photo-wrap">
-          <img src="https://3.bp.blogspot.com/-MVlVLnvWDQw/Wgwr003BnlI/AAAAAAAAGGI/uUjie4or9zkaGkUeHpOjk5RQwwWscyGjACLcBGAs/s1600/Baguio%2BCity%2BPasalubong%2B4.JPG" alt="Pasalubong Culture" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="photo-placeholder" style="display:none;"><span>🎁</span><p>Pasalubong<br>Photo Here</p></div>
-        </div>
-        <div class="culture-emoji">🎁</div>
-      </div>
+      <div class="culture-strip reveal"><div class="culture-num">01</div><div class="culture-strip-content"><h3>Panagbenga Festival</h3><p>The grand Flower Festival every February — a month-long explosion of blooms, street dancing, and Baguio pride that draws visitors nationwide.</p></div><div class="culture-photo-wrap"><img src="https://media.philstar.com/photos/2022/12/04/gen4-panagbenga-festival2018-02-2422-22-56_2022-12-04_12-28-29.jpg" alt="Panagbenga Festival" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:none;"><span>🌸</span><p>Panagbenga<br>Photo Here</p></div></div><div class="culture-emoji">🌸</div></div>
+      <div class="culture-strip reveal"><div class="culture-num">02</div><div class="culture-strip-content"><h3>BenCab Museum</h3><p>Home to the works of National Artist Benedicto Cabrera — nestled in an eco-garden that showcases Filipino art, indigenous artifacts, and Cordilleran heritage.</p></div><div class="culture-photo-wrap"><img src="http://farm4.staticflickr.com/3769/11381391845_8f7f6ba794_o.jpg" alt="BenCab Museum" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:none;"><span>🎨</span><p>BenCab Museum<br>Photo Here</p></div></div><div class="culture-emoji">🎨</div></div>
+      <div class="culture-strip reveal"><div class="culture-num">03</div><div class="culture-strip-content"><h3>Igorot Weaving</h3><p>The intricate hand-woven textiles of the Cordillera — each pattern a story of lineage, rank, and identity passed down through generations of masterful weavers.</p></div><div class="culture-photo-wrap"><img src="https://baguioheraldexpressonline.com/wp-content/uploads/2019/11/cordillera-weaver-111719.jpg" alt="Igorot Weaving" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:none;"><span>🧵</span><p>Igorot Weaving<br>Photo Here</p></div></div><div class="culture-emoji">🧵</div></div>
+      <div class="culture-strip reveal"><div class="culture-num">04</div><div class="culture-strip-content"><h3>Night Market</h3><p>Below Session Road every evening — a beloved Baguio ritual of ukay-ukay, street food, warm jackets, and the unmistakable smell of strawberry taho.</p></div><div class="culture-photo-wrap"><img src="https://live.staticflickr.com/8567/15992561950_da6c7ecae9_k.jpg" alt="Night Market" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:none;"><span>🌙</span><p>Night Market<br>Photo Here</p></div></div><div class="culture-emoji">🌙</div></div>
+      <div class="culture-strip reveal"><div class="culture-num">05</div><div class="culture-strip-content"><h3>Pasalubong Culture</h3><p>Baguio's iconic pasalubong scene — ube jam, peanut brittle, pine needle crafts, and woven goods that carry a piece of the mountain home.</p></div><div class="culture-photo-wrap"><img src="https://3.bp.blogspot.com/-MVlVLnvWDQw/Wgwr003BnlI/AAAAAAAAGGI/uUjie4or9zkaGkUeHpOjk5RQwwWscyGjACLcBGAs/s1600/Baguio%2BCity%2BPasalubong%2B4.JPG" alt="Pasalubong Culture" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:none;"><span>🎁</span><p>Pasalubong<br>Photo Here</p></div></div><div class="culture-emoji">🎁</div></div>
     </div>
   </div>
 </section>
@@ -904,37 +530,11 @@
       <span class="logo-city">Baguio City</span>
       <span class="logo-tagline">Summer Capital of the Philippines</span>
       <p>A highland city of pine trees, cool air, and warm Filipino hearts. Established 1900. Loved forever.</p>
-      <div style="margin-top:1rem;font-size:1.8rem;color:rgba(200,133,10,0.4);letter-spacing:0.3em;">ᜊᜄᜒᜌᜓ</div>
+      <div style="margin-top:1rem;font-size:1.8rem;color:rgba(184,122,8,0.38);letter-spacing:0.3em;">ᜊᜄᜒᜌᜓ</div>
     </div>
-    <div class="footer-col">
-      <h4>Navigate</h4>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#government">Government</a></li>
-        <li><a href="#tourism">Tourism</a></li>
-        <li><a href="#culture">Culture</a></li>
-        <li><a href="#visit">Visit</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Tourism</h4>
-      <ul>
-        <li><a href="#">Burnham Park</a></li>
-        <li><a href="#">Mines View Park</a></li>
-        <li><a href="#">The Mansion</a></li>
-        <li><a href="#">BenCab Museum</a></li>
-        <li><a href="#">Strawberry Farm</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="https://new.baguio.gov.ph/home">City Hall Baguio</a></li>
-        <li><a href="https://visita.baguio.gov.ph/">Tourism Office</a></li>
-        <li><a href="https://baguiodirectory.net/baguio-city-emergency-numbers/">Emergency Hotlines</a></li>
-        <li><a href="https://www.facebook.com/pio.baguio/">Social Media</a></li>
-      </ul>
-    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="#about">About</a></li><li><a href="#government">Government</a></li><li><a href="#tourism">Tourism</a></li><li><a href="#culture">Culture</a></li><li><a href="#visit">Visit</a></li></ul></div>
+    <div class="footer-col"><h4>Tourism</h4><ul><li><a href="#">Burnham Park</a></li><li><a href="#">Mines View Park</a></li><li><a href="#">The Mansion</a></li><li><a href="#">BenCab Museum</a></li><li><a href="#">Strawberry Farm</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="https://new.baguio.gov.ph/home">City Hall Baguio</a></li><li><a href="https://visita.baguio.gov.ph/">Tourism Office</a></li><li><a href="https://baguiodirectory.net/baguio-city-emergency-numbers/">Emergency Hotlines</a></li><li><a href="https://www.facebook.com/pio.baguio/">Social Media</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 Baguio City Government · All Rights Reserved · Philippines · Developed by <a href="https://github.com/hilcasm" target="_blank" rel="noopener noreferrer">HCC</a></p>
@@ -976,7 +576,6 @@
 </div>
 
 <script>
-  // NAV
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('navLinks');
@@ -989,24 +588,16 @@
     toggleIcon.textContent = mobileMenuOpen ? '✕' : '☰';
   });
   navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenuOpen = false;
-      navLinks.classList.remove('mobile-open');
-      toggleIcon.textContent = '☰';
-    });
+    link.addEventListener('click', () => { mobileMenuOpen = false; navLinks.classList.remove('mobile-open'); toggleIcon.textContent = '☰'; });
   });
   window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
 
-  // SCROLL REVEAL
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('visible'); }, 100); observer.unobserve(entry.target); }
-    });
+    entries.forEach((entry) => { if (entry.isIntersecting) { setTimeout(() => { entry.target.classList.add('visible'); }, 100); observer.unobserve(entry.target); } });
   }, { threshold: 0.12 });
   reveals.forEach(el => observer.observe(el));
 
-  // STRAWBERRY FACTS
   const facts = [
     "Baguio sits at 1,540 meters above sea level — roughly as high as 5 Eiffel Towers stacked up!",
     "Baguio is the only chartered city in the Cordillera Administrative Region — it's its own boss.",
@@ -1034,6 +625,7 @@
   const factText = document.getElementById('fact-text');
   const counter = document.getElementById('fact-counter');
   const berryBtn = document.getElementById('berry-btn');
+
   function shuffle(arr) { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
   function getNextFact() { if(factIndex>=shuffled.length){shuffled=shuffle(facts);factIndex=0;} return shuffled[factIndex++]; }
   function showFact() {
@@ -1052,6 +644,53 @@
   shuffled = shuffle(facts);
   setTimeout(showFact,3000);
   berryBtn.addEventListener('click', () => { bubble.classList.contains('visible') ? hideFact() : showFact(); });
+
+  function createFireflies(section, count) {
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;';
+    section.style.position = 'relative';
+    section.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    function resize() { W = canvas.width = section.offsetWidth; H = canvas.height = section.offsetHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    function rand(a,b) { return Math.random()*(b-a)+a; }
+    const flies = Array.from({length:count}, () => ({
+      x: rand(0,W||800), y: rand(0,H||600),
+      r: rand(1,2), alpha: rand(0,0.16),
+      alphaDir: rand(0.001,0.004)*(Math.random()<0.5?1:-1),
+      speed: rand(0.07,0.2), angle: rand(0,Math.PI*2),
+      angleChange: rand(-0.007,0.007), glowSize: rand(4,8)
+    }));
+    function draw() {
+      ctx.clearRect(0,0,W,H);
+      flies.forEach(f => {
+        f.alpha += f.alphaDir;
+        if(f.alpha<=0){f.alpha=0;f.alphaDir=Math.abs(f.alphaDir);}
+        if(f.alpha>=0.18){f.alpha=0.18;f.alphaDir=-Math.abs(f.alphaDir);}
+        f.angle += f.angleChange+rand(-0.002,0.002);
+        f.x += Math.cos(f.angle)*f.speed;
+        f.y += Math.sin(f.angle)*f.speed;
+        if(f.x<0)f.x=W; if(f.x>W)f.x=0;
+        if(f.y<0)f.y=H; if(f.y>H)f.y=0;
+        const grd = ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.glowSize);
+        grd.addColorStop(0,`rgba(170,225,70,${f.alpha})`);
+        grd.addColorStop(0.4,`rgba(140,205,50,${f.alpha*0.28})`);
+        grd.addColorStop(1,`rgba(110,185,30,0)`);
+        ctx.beginPath(); ctx.arc(f.x,f.y,f.glowSize,0,Math.PI*2);
+        ctx.fillStyle=grd; ctx.fill();
+        ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(195,240,130,${f.alpha})`; ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  document.querySelectorAll('#hero,#about,#government,#tourism,#culture,#visit,footer').forEach(s => {
+    createFireflies(s, 8);
+  });
 </script>
 </body>
 </html>
